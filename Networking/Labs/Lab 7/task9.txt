@@ -1,0 +1,36 @@
+Lab 7
+
+Student Name: Nouraldin Hassan
+
+
+1) IP addresses:
+PC: 192.168.91.2
+Server: 192.168.219.2
+Router 0 fa0/0: 192.168.91.254
+Router 0 fa0/1: 10.10.224.5
+Router 1 fa0/0: 192.168.219.254
+Router 1 fa0/1: 10.10.224.6
+
+
+2) Explain why the source and destination IP addresses are different at the screenshots task8-1-1 and task8-1-2. Answer in details.
+
+
+8-1-1: SRC IP is 192.168.91.2. Destination Address: 00D0.978A.D501
+
+8-1-2: SRC IP is 10.10.224.6. Destination Address: 0001.4344.4102
+
+Destination IP does NOT change, despite the removal of static routing. This is because of NAT configuration not being subjective to destination IP, and that the private IP is to stay private, hence why destination IP is the same. This is done for the PC.
+Source IP DOES change, because of the NAT translation to the Router(s), especially when the packet goes to Router0 from PC, the Router inside the network can see the PC's IP, but outside the network it can't, so the packet moving to Router1 has the IP changed after. In other words, the NAT configuration still needs to make the IP private and continue to mask said private IP with public IP.
+Destination ADDRESS still changes since when the information is being passed, it is part of the local network segment.
+
+
+3) Explain why the source and destination IP addresses are different at the screenshots task8-2-1 and task8-2-2. Answer in details.
+
+
+8-2-1: 10.10.224.5. Destination Address: 0000.4344.4102
+
+8-2-2: 192.168.219.2. Destination Address: 00D0.97DC.34D3
+
+Source IP does NOT change, despite the removal of static routing. This is because of NAT configuration, and that the private IP is to stay private, hence why source IP is the same. This is done for the Server.
+Destination IP DOES change because of the same reason with the packet mention in Pc to Router0. The NAT configuration still needs to make the IP private and continue to mask said private IP with public IP.
+Destination ADDRESS still changes again since when the information is being passed, it is part of the local network segment.

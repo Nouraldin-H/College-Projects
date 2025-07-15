@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Defining a function/method that generates a random password without asteriks
+generate_passwd() {
+ # Defining a set of characters to choose from
+ chars="0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-={}|[]\\:\";'<>?,./"
+ 
+ # Choose random length between 8 and 11 characters
+ length=$(( 8 + RANDOM % 4 ))
+ 
+ # Generate password by choosing random characters from set
+ passwd=""
+ for i in $(seq 1 $length); do
+  rand_char=${chars:RANDOM%${#chars}:1}
+  passwd="$passwd$rand_char"
+ done
+ 
+ echo "$passwd"
+}
+
+# Generate password and print password
+passwd=$(generate_passwd)
+echo "Your password is: $passwd"

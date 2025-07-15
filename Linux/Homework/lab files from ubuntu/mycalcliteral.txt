@@ -1,0 +1,126 @@
+#!/bin/bash
+
+# Student Name: Nouraldin Hassan
+# Student Number: 041054019
+# CST8102 320/321
+# Semester: Winter 2023
+# Instructor: Saifuddin Terai
+# Created March 28, 2023
+
+# Purpose: This script is for making a calculator system in bash shell to perform different operations depending on the option chosen via input. The different numbers and operation combinations generate unique results.
+
+# declare menu system
+menu() {
+ clear
+ echo "Program to perform calculations"
+ echo "------ Menu ------"
+ echo "Please select an option:"
+ option_a
+ option_b
+ option_c
+ option_d
+# option_e
+ option_q
+}
+
+# declare options
+option_a() {
+ local a
+ echo "A. Perform Addition Calculation"
+}
+option_b() {
+ local b
+ echo "B. Perform Subtraction Calculation"
+}
+option_c() {
+ local c
+ echo "C. Perform Multiplication Calculation"
+}
+option_d() {
+ local d
+ echo "D. Perform Division Calculation"
+}
+option_e() {
+ local e
+ echo "E. Perform Mixed Calculation"
+}
+option_q() {
+ local q
+ echo "Q. Quit the program"
+}
+# declare input
+input() {
+ read -p "Input a letter between A to E. Type Q to quit the program. " input
+}
+
+# declare and open the menu
+openmenu=$(menu)
+echo "$openmenu"
+
+# infinite loop
+while true; do
+ input
+ # case statement for options
+ case $input in
+ # A or a, capital or lowercase
+  [Aa])
+  # Addition
+  read -p "Enter a number for adding: " number1
+  read -p "Enter a second number for adding: " number2
+  (( calculation = ( number1 + number2 ) ))
+   echo $number1 + $number2 is:
+   echo $calculation
+   ;;
+  [Bb])
+  # Subtraction
+  read -p "Enter a number for subtracting: " number1
+  read -p "Enter a second number for subtracting: " number2
+   (( calculation = ( number1 - number2 ) ))
+   echo $number1 - $number2 is:
+   echo $calculation
+   ;;
+  [Cc])
+  # Multiplication
+  read -p "Enter a number for multiplying: " number1
+  read -p "Enter a second number for multiplying: " number2
+  (( calculation = ( number1 * number2 ) ))
+   echo $number1 * $number2 is:
+   echo $calculation
+   ;;
+  [Dd])
+  # Division
+  read -p "Enter a number for dividing: " number1
+  read -p "Enter a second number for dividing: " number2
+   (( calculation = ( number1 / number2 ) ))
+   echo $number1 / $number2 is:
+   echo $calculation
+   ;;
+#  [Ee])
+#  # Mixed
+#  operators="+-*/"
+#  read -p "Enter a number: " number1
+#  read -p "Enter an operator (in either +, -, *, or /): " operator1
+#  while [ $operator1 != "'+'" ] || [ $operator1 != "'-'" ] || [ $operator1 != "'*'" ] || [ $operator1 "'/'" ]; do
+#   read -p "Invalid Operator. Enter an operator: " operator1
+#  done
+#  read -p "Enter a second number: " number2
+#   (( calculation = ( number1 operator1 number2 ) ))
+#   echo $number1 $operator1 $number2 is:
+#   echo $calculation
+#   ;;
+  [Qq])
+   exit 0
+   ;;
+   # other values
+  *)
+   echo "Invalid choice"
+   ;;
+ 
+ esac
+ 
+ # press enter because no input variable declared.
+ read -p "Press enter to continue..."
+ # sleep 3
+ menu
+done
+#eof

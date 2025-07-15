@@ -1,0 +1,9 @@
+To answer a question in today's class.
+
+Take a look at this URL, you need to install two programs, ttyrec and imagemagick
+
+This is not part of the course and is optional. 
+
+You may install it for your own learning purposes.
+
+https://www.howtoforge.com/tutorial/how-to-record-your-terminal-session-on-linux/

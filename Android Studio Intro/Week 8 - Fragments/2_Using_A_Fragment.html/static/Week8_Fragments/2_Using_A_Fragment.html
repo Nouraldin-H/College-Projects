@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html><head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="../../css/main.css" type="text/css">
+  <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+  <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<h1>Fragments</h1>
+<p>A Fragment is like an Activity object, except that it doesn't have to take up the whole screen. An Activity object represents the entire screen and if you want to change screens, you start another Activity with the startActivity() function. Fragments do the same thing although a Fragment can take up only part of the screen, like the left or right sides. Here, we will use Fragments to view a Chat Message when you click on an item in the list view.</p>
+<p><img style="width: 560px; height: 323px; display: block; margin-left: auto; margin-right: auto;" data-noaft="1" jsaction="load:XAeZkd;" jsname="HiaYvf" alt="Android - Fragments - Tutorialspoint" src="https://www.tutorialspoint.com/android/images/android_fragments.jpg"></p>
+<p>In the previous page, you have changed the ChatRoom activity so that it listens for when the selectedMessage is updated to a new value. In this case, we want to load a <b>Fragment</b> on the <b>Right</b> side of the page on a tablet.</p>
+<hr>
+<h2>Creating a Fragment</h2>
+<p>Create a new Java class called MessageDetailsFragment that extends Fragment. Give it the name <b>"MessageDetailsFragment"</b>:</p>
+<p><img src="images/File_o1hq889nwih1dkiewodhllei3oenc66100152296770.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Then modify the Java class so that it extends Fragment:</p>
+<p><img src="images/File_dq0i7mvdhqwzfy12k2ih00uxv2qq2a0m00152296770.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Type Ctrl-O to generate the <strong>onCreateView()</strong> function (delete everything that has to do with @Nullable):</p>
+<p><img src="images/File_idi4r12w86a04z64pps0j0jtuy0wkcfy00152296770.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Now create a Layout file for showing the details of a message: (Database ID, Message, isSentOrReceive, timeSent). Create a layout file called details_layout.xml. Remember, a Fragment is like an Activity, only it doesn't have to take the whole screen:</p>
+<p><img src="images/File_p1g2vjpfgpl4sryyvc87hh8l6sn97v1p00152296770.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>There are 4 things to display, so drag 4 TextViews on to the display:</p>
+<p><img src="images/File_3ifalnpn0xu5m11ejivudwql3n0o773h00152296770.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Here, the TextViews are all aligned by the left side, which is 32 pixels from the margin. Each TextView is 32 pixels below the TextView above.</p>
+<p>Now in the onCreateView function, create the view binding class for this layout:</p>
+<p><img src="images/layoutBinding.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Lastly, create a constructor for your class which takes a ChatMessage object that it will use as a data source for the TextViews:</p>
+<p><img src="images/constructor.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<hr>
+<h2>Loading the fragment</h2>
+<p>Back in the ChatRoom class, in the <b>observe()</b> function, add the code to load a Fragment. First you need the FragmentManager object, which is a Singleton object:</p>
+<p style="padding-left: 40px;"><strong>FragmentManager fMgr = getSupportFragmentManager();</strong></p>
+<p>Next, you use it to create what's called a FragmentTransaction:</p>
+<p style="padding-left: 40px;"><strong>FragmentTransaction tx = fMgr.beginTransaction();</strong></p>
+<p>Fragment Transactions can add, replace or remove a fragment:</p>
+<ol>
+<li><strong>tx.add()</strong></li>
+<li><strong>tx.replace()</strong></li>
+<li><strong>tx.remove()</strong></li>
+</ol>
+<p></p>
+<p>In order to use the add, or replace functions, you must create a ChatRoom fragment:</p>
+<pre>    DetailsFragment chatFragment = new DetailsFragment( newValue );</pre>
+<p></p>
+<p>The add() function needs the id of the FrameLayout where it will load the fragment:</p>
+<p style="padding-left: 40px;"><strong>tx.add(R.id.fragmentLocation, chatFragment);</strong></p>
+<p>Then run the transaction:</p>
+<p style="padding-left: 40px;"><strong>tx.commit();</strong>// This line actually loads the fragment into the specified FrameLayout</p>
+<pre>  DetailsFragment chatFragment = new DetailsFragment( newValue );  //newValue is the newly set ChatMessage
+  FragmentManager fMgr = getSupportFragmentManager();
+  FragmentTransaction tx = fMgr.beginTransaction();
+  tx.add(R.id.fragmentLocation, chatFragment);
+  tx.commit();
+</pre>
+<p>This code also follows the Builder Pattern, so you can write it all as one line:</p>
+<pre>  DetailsFragment chatFragment = new DetailsFragment( newValue );
+  getSupportFragmentManager().beginTransaction().add(R.id.fragmentLocation, chatFragment).commit();
+</pre>
+<p>In the end, your <b>observe()</b> function should look like this:</p>
+<pre>  viewModel.selectedMessage.observe(this, (newValue) -&gt; {
+    DetailsFragment chatFragment = new DetailsFragment();
+    chatFragment.displayMessage(newValue);
+    getFragmentManager()
+      .beginTransaction()
+      .replace(R.id.fragmentLocation, chatFragment)
+      .commit();
+  }</pre>
+<p></p>
+<p>You should now be finished everything for the tablet version of the app. When you click on a row in the RecyclerView, it gets the corresponding ChatMessage object and posts it to the ViewModel. Then, the ChatRoom registers as an observer of that ViewModel variable and gets notified when it changes. When it does change, it loads a new Fragment to display the selected message. It's similar to creating individual rows for a RecyclerView. <br>Now all that's left is to implement the phone version of the app. Instead of loading the MessageDetailsFragment into a FrameLayout beside the RecyclerView, we will load the fragments overtop the RecyclerView</p>
+<hr>
+<h1>Fragments on a phone</h1>
+<p>The layout on a phone so far has a <b>ConstraintLayout</b> as the root element. A FrameLayout is meant to only hold one item, so let's put the ConstraintLayout inside a FrameLayout You will have to move all of the <b>xmlns:</b> declarations from the ConstraintLayout to the FrameLayout, and set the width and height of the FrameLayout to match_parent. That way when you do the fragment transaction, the new Fragment will be placed overtop the ConstraintLayout. You'll have to put another LinearLayout as the root of the file:</p>
+<pre> &lt;LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"&gt;
+  <br>
+    &lt;FrameLayout android:id="@+id/fragmentLocation"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"&gt;
+      <br>
+    &lt;ConstraintLayout&gt;
+      &lt;RecyclerView&gt; &lt;/RecyclerView&gt;
+  ...
+      &lt;/ConstraintLayout&gt; &lt;/FrameLayout&gt;
+  &lt;/LinearLayout&gt;</pre>
+<p>Give the <b>FrameLayout</b> in the phone layout the same id as for the tablet. That way, you don't have to change the FragmentTransaction code.</p>
+<hr>
+<p>When the Fragment loads overtop the RecyclerView, you will still be able to see the RecyclerView through the Fragment. You will see two things piled overtop one another. You can fix this just by making the Fragment's background color to be white: <br><b>android:background="@color/white"</b><br>Also, when you click on the back arrow, you will go back to the previous activity page. You will not be able to undo loading a Fragment overtop the RecyclerView on a phone. In order to fix this, you can add a function call as part of the Builder pattern when creating a FragmentTransaction: <br><br><b>.addToBackStack("")</b> - this adds the transaction to the stack of pages to undo by pressing the back arrow. <br>That means that after loading a Fragment, pressing the back arrow the first time will undo the FragmentTransaction, and the second time you press the arrow, you will go back to the previous page.</p>
+<p>That's it! Your code should now work on both a phone, and on a tablet. When a message is selected, a FragmentTransaction will load a DetailsFragment into the FrameLayout on the screen. The phone and tablet have different locations where the Fragment will end up.</p>
+<h2>Marks for Lab 8 (4 Total)</h2>
+<table style="width: 90%;">
+<tbody>
+<tr>
+<th>Item</th>
+<th>Marks</th>
+</tr>
+<tr>
+<td>You have a layout-sw600dp folder with a ChatRoom layout for tablets</td>
+<td>(2 marks)</td>
+</tr>
+<tr>
+<td>Selecting a message from the RecyclerView loads a fragment on the right side on a Tablet</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>Selecting a message from the RecyclerView loads a fragment overtop the RecyclerView on a phone</td>
+<td>(1 mark)</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+</body></html>

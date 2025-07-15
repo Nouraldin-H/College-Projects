@@ -1,0 +1,70 @@
+<!-- TODO: user and admin privelages on login,
+create/update/delete watches from watchlist -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Nouraldin Hassan, David Omidiora, Roberto Agu">
+  <meta name="description" content="Index/Main page of Watch Shopping Site with login system. Assignment 2 website">
+  <meta name="keywords" content="watches, store, shop, search bar, navigation, listing, watch store">
+  <meta name="date" content="2023-07-23">
+  <meta name="section" content="CST8285 300/302">
+  <meta name="file" content="index.html">
+  <meta name="lab objective" content="Make a site with a login system and utilize PHP/SQL. Creativity is needed.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxury Watch Store</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Luxury Watch Store</h1>
+    <nav>
+      <!-- actual navigation links go under here -->
+      <a href="#homepage">Home</a>
+      <a href="watchlist.html">Watches</a>
+      <a href="#contact">Contact</a>
+      <a href="#account/login">Login</a>
+      <a href="#shopping/cart">Cart</a>
+    </nav>
+  </header>
+  <!-- below is the main content for the page -->
+  <main>
+    <!-- below is the starting HTML for the index -->
+    <section class="main-index">
+      <h2>Welcome to Our Luxury Watch Store</h2>
+      <p>Discover the finest collection of luxury watches from top brands like Timex, Rolex, and Burberry.</p>
+      <a href="watchlist.html" class="btn">Shop Now</a> <!-- takes you to the watch list -->
+      <h5>All prices are in Canadian Dollars (CAD)</h5>
+    </section>
+    <!-- below is the list of watches on the featured section (and class) with cards -->
+    <section class="featured">
+      <h3>Featured Watches</h3>
+      <!-- below is the first card -->
+      <div class="watch-cards-container">
+        <div class="watch-card featured-watch-card-left">
+          <img src="Images/timex-waterbury-1.png" alt="Classic Timepiece (source: https://timex.ca/products/waterbury-classic-40mm-leather-strap-watch-tw2v73600)">
+          <h4>Classic Timepiece</h4>
+          <p>Brand: Timex</p>
+          <p>Type: Simple</p>
+          <p>Price: $99.99</p>
+        </div>
+        <!-- below is the second card -->
+        <div class="watch-card featured-watch-card-right">
+          <img src="Images/rolex-gmt-master-ii.png" alt="Elegant Luxury Watch (source: https://www.rolex.com/en-us/watches/gmt-master-ii/m126713grnr-0001)">
+          <h4>Elegant Luxury Watch</h4>
+          <p>Brand: Rolex</p>
+          <p>Type: Simple</p>
+          <p>Price: $4999.99</p>
+        </div>
+        <!-- More watch cards go here if needed, or modify existing cards above -->
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2023 Luxury Watch Store. All rights reserved.</p>
+  </footer>
+  <!-- below is the script declaration. It must be there for loading and compatibility purposes -->
+  <script src="script.js"></script>
+</body>
+</html>

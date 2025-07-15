@@ -1,0 +1,138 @@
+#!/bin/bash
+
+# Student Name: Nouraldin Hassan
+# Student Number: 041054019
+# CST8102 320/321
+# Instructor: Saifuddin Terai
+# Created March 21, 2023
+
+# Purpose: This script is for making a menu system in bash shell to perform different options depending on the option chosen via input. The different options perform different functions that are specified within the script.
+
+: << 'END' Figure 7.2
+#!/bin/bash
+# filename : local_var.sh
+
+check_x(0 {
+ local x=5
+ echo "Within function check_x. : " $x
+}
+
+(( x = 10 ))
+echo "Outside function check_x. 1.: " $x
+
+check_x
+
+echo "Outside function check_x. 2.: " $x
+
+#eof
+END
+
+menu() {
+ clear
+ echo "Program to manage user accounts"
+ echo "------ Menu ------"
+ echo "Please select an option:"
+ option_a
+ option_b
+ option_c
+ option_d
+ option_e
+ option_f
+ option_q
+}
+
+option_a() {
+ local a
+ echo "A. Create User Account"
+}
+option_b() {
+ local b
+ echo "B. Delete User Account"
+}
+option_c() {
+ local c
+ echo "C. Change Supplementary Group for a User Account"
+}
+option_d() {
+ local d
+ echo "D. Change Initial Group for a User Account"
+}
+option_e() {
+ local e
+ echo "E. Change default login shell for a User Account"
+}
+option_f() {
+ local f
+ echo "F. Change account expiration date for a User Accousnt"
+}
+option_q() {
+ local q
+ echo "Q. Quit the program"
+}
+input() {
+ read -p "Input a letter between A to F. Type Q to quit the program. " input
+}
+openmenu=$(menu)
+echo "$openmenu"
+
+while true; do
+ input
+ case $input in
+  [Aa])
+  read -p "Enter a username to add: " username
+   # adds user
+   sudo useradd -m $username
+   # echo "$username:algonquin" | sudo chpasswd
+   # updates user account
+   sudo usermod -aG sudo "$username"
+   echo "User account $username created with password 'algonquin'"
+   ;;
+  [Bb])
+  # deletes user
+  read -p "Enter a username to add: " username
+   sudo userdel -r $username
+   echo "User account 'newuser' deleted"
+   ;;
+  [Cc])
+   read -p "Enter a user to modify supplementary group for: " username
+   read -p "Enter new supplementary group name: " groupname
+   sudo groupadd $groupname
+    # adds the user to the group
+     sudo usermod -aG $groupname $username
+     echo "User $username added to supplementary group $groupname."
+   ;;
+  [Dd])
+   read -p "Enter a user to modify initial group for: " username
+   # checks if the user exists
+   read -p "Enter new initial group name: " groupname
+   # changes the initial group of the user
+   sudo usermod -g $groupname $username
+   echo "Initial group for user $username changed to $groupname."
+   ;;
+  [Ee])
+   read -p "Enter a user to modify default shell for: " username
+   # checks if the user exists
+   read -p "Enter new login shell: " loginshell
+   # checks if the shell exists
+   sudo chsh -s $loginshell $username
+   echo "Default shell for user $username changed to $loginshell."
+   ;;
+  [Ff])
+   read -p "Enter a user to modify expiration date for: " username
+   read -p "Enter new expiration date in YYYY-MM-DD format: " expiredate
+   # sets the new expiration date for the user's account
+   sudo usermod --e $expiredate $username
+   echo "Expiration date for user $username changed to $expiredate."
+   ;;
+  [Qq])
+   exit 0
+   ;;
+  *)
+   echo "Invalid choice"
+   ;;
+ 
+ esac
+ 
+ sleep 3
+ menu
+done

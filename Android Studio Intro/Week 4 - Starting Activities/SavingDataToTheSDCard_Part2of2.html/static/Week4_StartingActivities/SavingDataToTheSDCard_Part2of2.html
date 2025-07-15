@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="../../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+    <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+
+    <title>Saving Data To SD Card - Part 2 of 2</title>
+  </head><body><section class="section is-medium">
+<h2 class="title">Theory</h2>
+</section>
+<h2>Saving files</h2>
+<p>Android applications use what's called the Sandbox model. Applications are installed somewhere on the phone although the exact location doesn't matter. Apps can not access any files or folders outside of where they have been installed. You can only creates files and folders within your own directory . You can query where the app has been installed by calling the function <b>getFilesDir()</b>, which returns a <b>File </b>object representing the directory where the app is running from, called the Sandbox.</p>
+<p>To open a file in the Sandbox, you call <b>openFileOutput(String name, int mode);</b> The String name parameter is the filename to create, and the int mode should be <b>Context.MODE_PRIVATE</b>; This means that only the app that created the file can open it.</p>
+<p></p>
+<h1>Lab work</h1>
+<h2>Saving data using variables</h2>
+<p>You can save a bitmap object to the disk using the code. Go ahead and modify your onActivityResult() function to save the bitmap that is returned:</p>
+<p class="code" style="padding-left: 60px;">FileOutputStream fOut = null;</p>
+<p></p>
+<p class="code" style="padding-left: 90px;">try { fOut = openFileOutput("Picture.png", Context.MODE_PRIVATE);</p>
+<p class="code" style="padding-left: 120px;">mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);</p>
+<p class="code" style="padding-left: 120px;">fOut.flush();</p>
+<p class="code" style="padding-left: 120px;">fOut.close();</p>
+<p class="code" style="padding-left: 90px;">}</p>
+<p class="code" style="padding-left: 90px;">catch (FileNotFoundException e)</p>
+<p class="code" style="padding-left: 120px;">{ e.printStackTrace();</p>
+<p class="code" style="padding-left: 90px;">}</p>
+<p>Then in your onCreate() function, you can test if a file exists (if you already have a bitmap saved) with the code:</p>
+<p></p>
+<p class="code" style="padding-left: 60px;">File file = new File( getFilesDir(), filename);</p>
+<p class="code" style="padding-left: 60px;">if(file.exists())</p>
+<p class="code" style="padding-left: 60px;">{</p>
+<p></p>
+<p class="code" style="padding-left: 60px;">}</p>
+<p>If the file exists, then y ou can read it within the if() statement:</p>
+<p class="code"><strong><em>Bitmap theImage = BitmapFactory.decodeFile(filename);</em></strong></p>
+<p>Now modify your onCreate() function to check if your picture file exists, and if so, then load it into the bitmap object. You can then set the src of y our ImageView to the bitmap that you loaded:</p>
+<p class="code"><em><strong>myImageView.setImageBitmap( Bitmap bmp );</strong></em></p>
+<p>Now when you take a picture for your profile picture, it should save it to the device so that the next time you run your application, the picture gets loaded immediately when you come to your second activity.</p>
+<h2>Now some theory on SharedPreferences:</h2>
+<p>There is also a method to save data using an object called SharedPreferences. This is similar to an Intent object where you save data associated with a variable name. Go back to your MainActivity.java file, and let's write code to save the login email address that the user types in so that the next time they run the application, the email address can be pre-filled from what was saved the previous time. First, create a SharedPreferences object using the code:</p>
+<p class="code"><strong><em>SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);</em></strong></p>
+<p>The parameter <b>"MyData"</b> is the name of the file that will be opened for saving, and the <b>Context.MODE_PRIVATE</b> means that only the application that created the file can open it. There might already be data saved in the file, so we can ask to see if anything is saved using a variable name:</p>
+<p class="code"><em><strong>prefs.getString("VariableName", String defaultValue);</strong></em></p>
+<p>It's possible that there's nothing in the file associated with the name "VariableName", so the par ameter defaultV alue is there as a backup in case "VariableName" is missing in the data. In our case, if the user has never the app before, we don't want to pre-load the email address, so just use the empty string: "".</p>
+<p class="code"><strong><em>String emailAddress = prefs.getString("LoginName", "");</em></strong></p>
+<p>Now in your onCreate() function, set the text of the email address EditText to be the emailAddress variable that was just loaded.</p>
+<p>Lastly, if the user clicks the Login button, we want to save the email address that is typed in to the EditText. For that, you need an SharedPreferences.Editor object, which you can get from your SharedPreference object from above:</p>
+<p class="code"><strong><em>SharedPreferences.Editor editor = prefs.edit();</em></strong></p>
+<p>Now you can save the string to your MyData file that you have opened using the command:</p>
+<p class="code"><strong><em>editor.putString(String name, String value);</em></strong></p>
+<p>Here we want to use the variable name "LoginName", and the value should be the string that you should ha ve gotten from the email address EditText. However, the values have not yet been written to disk. You might want to save several variable names and values at the same time, so Android is optimized to write efficiently by putting all of the name/value pairs first, and then your last line of code should be:</p>
+<p class="code"><em><strong>editor.apply();</strong></em></p>
+<p></p>
+<p>The apply() function writes the data in a background thread so that the GUI doesn't slow down. That means that it will take several milliseconds for the data to be written to the disk, so if you were to immediately open the SharedPreferences file again, it might not be written yet. However if you transition to a new Activity using the startActivity() function, the data will be written by the time the onCreate() function of the next Activity is called. Go ahead now and debug your application now and type in an email address in the EditText, and click the Login button. This will take you to your second page. Restart your application by hitting the debug button again and this time the email address you typed in should be loaded back into the email address EditText using the code you just wrote. If y ou want to look inside the "MyData" file that stores your SharedPreferences, click on the button "Device File Explorer" on the right side of Android Studio:</p>
+<p><img src="images/img_p1_31.jpg" alt="Device File Explorer" title="Device File Explorer"></p>
+<p>Open up the "/data/data/" folder , and you should see a folder with your package name: <b>algonquin.cst2335.&lt;your algonquin id&gt;</b>. Open up that folder , and you will see a "shared_prefs" folder , with your MyData.xml file:</p>
+<p><img src="images/img_p1_32.jpg" alt="Device File Explorer" title="Device File Explorer"></p>
+<p>If you double-click on the MyData.xml file, you should see how the data are stored in your SharedPreferences:</p>
+<p><img src="images/img_p1_33.jpg" alt="Device File Explorer" title="Device File Explorer"></p>
+<p>Notice here that there is a &lt;string&gt; tag because you ran the code editor.putString("LoginName", emailAddress); If you were to put something else like putInt( ), putFloat():</p>
+<p><img src="images/img_p1_34.jpg" alt="Device File Explorer" title="Device File Explorer"></p>
+<p>and then run your app, you will see the MyData.xml file looks like this:</p>
+<p><img src="images/img_p1_35.jpg" alt="Device File Explorer" title="Device File Explorer"></p>
+<p>The XML file stores the data type of the variable along with the value. So to retrieve these values, you would use the code:</p>
+<p class="code">prefs.getFloat("Hi", 0); //the 0 specifies what to return in case the variable "Hi" is not in the file.</p>
+<p></p>
+<p class="code">prefs.getInt("Age", 0); //the 0 specifies what to return in case the variable "Age" is not in the file.</p>
+<p>Lastly, go to your SecondActivity.java, and write the onPause() function, so that you can run some code whenever the the Activity is going off the screen. In the onPause() function, save the value of the phone number that is currently entered in the EditText on that page, using the same SharedPreferences file that you used in MainActivity.java. Then in the onCreate() function of SecondActivity.java, load the SharedPreferences and try to retrieve the phone number that is saved, if there is any.</p>
+<p>This is the end of this week's material. You should commit all of your work onto the "Week4" branch, and then push it to your Github repository. Then take a screenshot of the code and submit that picture on Brightspace under the Assignments tab in the Lab 4 submission link.</p>
+<h2><span style="color: #cc0000;">Marks for Lab 4 (10 Total)<br></span></h2>
+<table style="width: 90%;">
+<tbody>
+<tr>
+<th>Item</th>
+<th>Marks</th>
+</tr>
+<tr>
+<td>You lab starts to a MainActivity that looks like the picture in part 1 of this week's materials, with an email address and password EditText</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>The password EditText uses the password inputType</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>The email address is loaded from SharedPreferences</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>If you type in a new email address and click "Login", that new values is saved to your SharedPreferences file, and you can see the changes in the Device Explorer window.</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>The Login page goes to your Second Activity, and shows the email address from the first page that is send over using the Intent object.</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>The telephone number is loaded and saved using SharedPreferences</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>The ImageView loads a saved bitmap file if there is one.</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>Clicking on the "Call number" loads a phone call intent to call the number written in the EditText.</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>Clicking on the "Change Picture" loads the camera activity that takes a new picture. Taking a picture and selecting the "Ok" or Checkmark button returns the bitmap which is then changed in the onActivityResult() function in SecondActivity, as well as saved to disk</td>
+<td>(2 marks)</td>
+</tr>
+<tr>
+<td>Taking a picture and canceling the photo does not replace the picture in SecondActivity.</td>
+<td>(1 mark)</td>
+</tr>
+</tbody>
+</table></body></html>

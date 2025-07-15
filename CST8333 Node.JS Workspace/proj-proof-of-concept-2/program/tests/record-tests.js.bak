@@ -1,0 +1,71 @@
+/**
+ * @author {Nouraldin Hassan}
+ */
+const assert = require('assert');
+const { initializeRecords, getRecords } = require('../service/record-service');
+const Record = require('../service/record');
+
+const sampleData = {
+    Date: '2024-09-22',
+    Month: 'September',
+    Year: '2024',
+    Company: 'Example Company',
+    Pipeline: 'Example Pipeline',
+    'Key Point': 'Example Key Point',
+    Latitude: '45.4215',
+    Longitude: '-75.6972',
+    'Flow Direction': 'North',
+    'Trade Type': 'Export',
+    Product: 'Oil',
+    Throughput: '1000',
+    'Committed Volumes': '500',
+    'Uncommitted Volumes': '500',
+    'Nameplate Capacity': '2000',
+    'Available Capacity': '1000',
+    'Variance Reason': 'Maintenance'
+};
+
+const record = new Record(
+    sampleData.Date,
+    sampleData.Month,
+    sampleData.Year,
+    sampleData.Company,
+    sampleData.Pipeline,
+    sampleData['Key Point'],
+    sampleData.Latitude,
+    sampleData.Longitude,
+    sampleData['Flow Direction'],
+    sampleData['Trade Type'],
+    sampleData.Product,
+    sampleData.Throughput,
+    sampleData['Committed Volumes'],
+    sampleData['Uncommitted Volumes'],
+    sampleData['Nameplate Capacity'],
+    sampleData['Available Capacity'],
+    sampleData['Variance Reason']
+);
+
+initializeRecords(() => {
+    const records = getRecords();
+    assert(records.length > 0, 'Records should be loaded');
+    const sampleRecord = records[0];
+    assert.strictEqual(sampleRecord.date, '2024-09-22', 'Date should match');
+    assert.strictEqual(sampleRecord.month, 'September', 'Month should match');
+    assert.strictEqual(sampleRecord.year, '2024', 'Year should match');
+    assert.strictEqual(sampleRecord.company, 'Example Company', 'Company should match');
+    assert.strictEqual(sampleRecord.pipeline, 'Example Pipeline', 'Pipeline should match');
+    assert.strictEqual(sampleRecord.keyPoint, 'Example Key Point', 'Key Point should match');
+    assert.strictEqual(sampleRecord.latitude, '45.4215', 'Latitude should match');
+    assert.strictEqual(sampleRecord.longitude, '-75.6972', 'Longitude should match');
+    assert.strictEqual(sampleRecord.flowDirection, 'North', 'Flow Direction should match');
+    assert.strictEqual(sampleRecord.tradeType, 'Export', 'Trade Type should match');
+    assert.strictEqual(sampleRecord.product, 'Oil', 'Product should match');
+    assert.strictEqual(sampleRecord.throughput, '1000', 'Throughput should match');
+    assert.strictEqual(sampleRecord.committedVolumes, '500', 'Committed Volumes should match');
+    assert.strictEqual(sampleRecord.uncommittedVolumes, '500', 'Uncommitted Volumes should match');
+    assert.strictEqual(sampleRecord.nameplateCapacity, '2000', 'Nameplate Capacity should match');
+    assert.strictEqual(sampleRecord.availableCapacity, '1000', 'Available Capacity should match');
+    assert.strictEqual(sampleRecord.varianceReason, 'Maintenance', 'Variance Reason should match');
+
+    console.log('All tests passed!');
+});

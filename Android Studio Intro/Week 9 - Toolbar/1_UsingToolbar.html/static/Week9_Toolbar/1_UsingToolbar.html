@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"><link rel="shortcut icon" href="/favicon.png" type="image/png"><link rel="stylesheet" href="../../css/main.css" type="text/css"><link rel="stylesheet" href="../../css/normalize.css" type="text/css"></head><body style="color: rgb(32, 33, 34); font-family: verdana, sans-serif; font-size: 12px;"><p></p>
+<p>
+<script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+</p>
+<h1>Toolbars</h1>
+<p>Toolbars are a place where you can put icons that are commonly used in your application. Android started. Android used to use a class called ActionBar, which is similar to Toolbar, however ActionBar can only be placed at the top of the screen. Toolbar is an improvement since it can be placed anywhere on the screen.</p>
+<p>In order to use Toolbar, you must tell Android not to use ActionBar. This is done in the /res/values/themes.xml file. Add these two lines somewhere inside the &lt;style&gt; tags:</p>
+<pre>        &lt;item name="windowActionBar"&gt;false&lt;/item&gt;
+        &lt;item name="windowNoTitle"&gt;true&lt;/item&gt;    </pre>
+<p>Notice it sets a variable called "windowActionBar" to false. Next, go to your layout file and add a &lt;Toolbar&gt; tag and give it an id. You must always set the layout_width and layout_height parameters. Then in Java, you just call <b>setSupportActionBar( );</b> and you must pass in your Toolbar object from the viewBinding:</p>
+<pre>setSupportActionBar(binding.myToolbar)</pre>
+<p></p>
+<p>When you call setSupportActionBar(), Android will call a function called <b> onCreateOptionsMenu()</b>. In your ChatRoom.java class, hit "Ctrl+O" and select onCreateOptionsMenu from the list of functions to generate.</p>
+<pre>    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        return true;
+    }
+</pre>
+<p>The point of this function is to load a Menu layout file. Notice that this function passes in a Menu object. This function should get a MenuInflater object to load an XML file. It's like the LayoutInflater that you used for the RecyclerView, only now it expect a menu file in the <b>/res/menu</b> folder.</p>
+<pre>   <b> getMenuInflater().inflate(R.menu.myMenu, menu);</b></pre>
+<p>This is the only line you have to add to the onCreateOptionsMenu() function.</p>
+<hr>
+<h2>Menu layout files</h2>
+<p>Right-click on the "res" folder and select "new" -&gt; "Android Resource File.". From the window that appears, select "Menu" as the resource type and give it a filename of "my_menu". You can actually choose whatever you want but you can only use lowercase letters or underscore. After, hit the "Ok" button. Then click "Add" to add the file to git tracking.</p>
+<p>You should see a Menu editor, with a Code, Design, or Split view just like when you open a layout file.</p>
+<p>Open the "Palette" window and drag a MenuItems onto the toolbar. <img src="images/twoMenuItems.png"></p>
+<p>If you look at the Attributes window on the right side, give the item an id, "item_1" for example. Then let's add a an icon to use as a picture for this menu item. Go to this website: <a href="https://icons8.com/icons/set/garbage">https://icons8.com/icons/set/garbage</a>. Next choose one of the garbage pail icons download, preferably size 96x96 pixels or near there. Once downloaded, rename the file to "delete.png".</p>
+<p>Back to the menu item, set the "icon" parameter to <b>@drawable/delete</b> <img src="images/setAttributes.png"> <br>Set the title to "Delete this item". Now look at the Design tab, and set the <b>"showAsAction"</b> to <b>always</b>. Notice carefully that you see the garbage icon, and there's no title anywhere. If you set showAsAction="always", then the menu item shows up at the top using only the icon. <br>Now change showAsAction to "never": <img src="images/showNever.png"></p>
+<p>If the showAsAction is set to "never", your menu item shows on the "overflow" menu, which is a button with three vertical dots. You have to press the overflow button, and then you see all the menu items shown using the <b>Title</b> only and the icon isn't used anywhere.</p>
+<p>You can add multiple Menu items to your application but you must decide if you want them to show up as an icon at the top of the page, or as text in the overflow menu. There's only space on your phone for about 3 icons so you must pick carefully. To make a menuitem appear as an icon, and no title, you set <b>showAsAction="always"</b>. Otherwise set <b>showAsAction="never"</b> and your menuitem will appear in the overflow menu as a title, and no icon.</p>
+<p>The last part is the "id" parameter of your menuitem. When the user clicks on a menuitem, Android will call a function called <b>onOptionsItemSelected</b>. Press "Ctrl+O" and implement the onOptionsItemSelected function in your ChatRoom activity.</p>
+<p>Notice that the function takes a MenuItem parameter, which represents the MenuItem from the XML file that was just selected. This function can just be a switch() statement where you check which ID from the menuitems was just clicked, and do something in response. For this week, just take the ChatMessage deletion code that you commented out last week in the Fragments, and now place it in the case for "item_1". Make sure that the menuitem is set as showAsAction="always" so it will appear as the gargage can icon you downloaded:</p>
+<pre>@Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch( item.getItemId() )
+        {
+            case R.id.item_1:
+
+                //put your ChatMessage deletion code here. If you select this item, you should show the alert dialog
+                //asking if the user wants to delete this message.
+                break;
+        }
+
+        return true;
+    }</pre>
+<p></p>
+<hr>
+<p>And that's it for Toolbar in Android. You create a &lt;Toolbar&gt; element in the XML layout file, and then you load that element in Java. You then call <b>setSupportActionBar()</b> to load and initialize that toolbar with the onCreateOptionsMenu() function. <br>For the MenuItem tags in the Menu xml file, you should set the <b>Title</b> parameter if you want this item to appear in the overflow menu, or you should set the <b>Icon</b> parameter if you want this item to appear at the top Toolbar using an Image in your Drawables folder.<br>For both cases, you should set the <b>id</b> parameter so that you can check for that id in the <b>onOptionsItemSelected</b> function. This function should just be a switch() statement where you check the possible ids from your menu file.</p>
+<p>For this week's lab, just add the Garbage can icon to the Toolbar so that the user can delete the selected ChatMessge that is currently being displayed in the DetailsFragment. Also, create a second menu item that appears in the overflow menu which has the Title of "About". Give it any id you want, but when the user selects this, you should show a toast saying <b>"Version 1.0, created by YourName"</b> but replace "YourName" with your actual name.</p>
+<p>This week's lab is fairly short since you should spend your extra time working on the final project.</p>
+<h2>Marks for Lab 9 (2 Total)</h2>
+<table style="width: 90%;">
+<tbody>
+<tr>
+<th>Item</th>
+<th>Marks</th>
+</tr>
+<tr>
+<td>You have a garbage can icon in the Toolbar that asks the user if they want to delete the ChatMessage.</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>You have an overflow menu item with a Title of "About" that shows an about Toast message</td>
+<td>(1 mark)</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p></body></html>

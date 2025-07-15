@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="../../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+    <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+
+    <title>Starting Activities - Part 1 of 2</title>
+  </head><body><section class="section is-medium">
+<h2 class="title">Theory</h2>
+</section>
+<h2>Starting Activities</h2>
+<p>So far in this course, you have learned that <br><strong>onCreate()</strong> is the first function that gets created when an application is launched. There are several other functions that get called when an application is launching:</p>
+<ul>
+<li><strong>onStart()</strong> - The application is now visible on screen.</li>
+<li><strong>onResume()</strong> - The application is now responding to user input</li>
+After these 3 function calls, your application is up and running on the screen. When another application comes up on screen and your application disappears beneath, there are other functions that get called:
+<li><strong>onPause()</strong>- The application no longer responds to user input</li>
+<li><strong>onStop()</strong> - The application is no longer visible.</li>
+Normally an application will always be asleep in the background when it is not visible on screen. It's only when an app is removed from the system by the user that the last function is called:
+<li><strong>onDestroy()</strong> - Any memory used by the application is freed.</li>
+</ul>
+<p></p>
+<h2>Starting new Activities</h2>
+<p>To start a new Activity, use the <strong>startActivity()</strong> function. This takes an Intent object as a parameter.</p>
+<h1 class="labStep">Lab Exercise Step 1:</h1>
+<p>Go ahead and implement all of these functions. Checkout your master branch, and from there create a new branch called "Week4". You can then automatically implement the functions that are inherited by the parent class by clicking on "Ctrl+O" (that's the letter O, not the number 0). Android Studio will give you a list of all of the inherited functions. You can start typing <em><strong>onstart </strong></em>and the search bar should find it from the list:</p>
+<p><img src="images/img_p1_1.png" alt="Selection Window" title="Selection Window"></p>
+<p></p>
+<p>Double-clicking on the function should implement an empty function:</p>
+<p></p>
+<p><img src="images/img_p1_2.png" alt="Generated onStart" title="Generated onStart"></p>
+<p></p>
+<p>Go ahead and implement the rest of the other functions: <b>onResume(), onPause(), onStop(), onDestroy(). </b></p>
+<p>Next, you can practice some of the debugging features in Android Studio. At the bottom, notice that there's a tab called "Logcat". It's a log window of various debug messages.</p>
+<p><img src="images/img_p1_3.png" alt="Logcat window" title="Logcat window"></p>
+<p>The LOG window: <br>You can also add some messages in here using the Log class in Android. Go to the onCreate() function and add the line of code:</p>
+<p class="code">Log.w( "MainActivity", "In onCreate() - Loading Widgets" );</p>
+<p>You will have to import the Log class. Then run your application and look at the Logcat window. Type "MainActivity" in the search field:</p>
+<p><img src="File_ac16531e704b4a7ea5bd231289c326d1_image.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></p>
+<p>Also add "level:warn" and you will see all <strong>Log.w</strong> messages. There are different levels of messages:</p>
+<p><span class="code"><strong>Log.v ( )</strong> </span>&nbsp;- shows a Verbose message. Using <strong><em>level:verbose</em></strong> will show all levels of messages: (v, d, i, w, e)</p>
+<p><span class="code"><strong>Log.d( )</strong></span> - shows a Debug message. Using<strong><em> level:debug</em></strong> will show (d, i, w, e)</p>
+<p><span class="code"><strong>Log.i ( )</strong></span> - shows an Info message. Using <strong><em>level:info</em></strong> will show (i, w, e)</p>
+<p><span class="code"><strong>Log.w ( )</strong></span>- shows a Warn message. Using<strong><em> level:warn</em></strong> will show (w, e)</p>
+<p><span class="code"><strong>Log.e ( )</strong></span> - shows an Error message. Using l<strong><em>evel:error </em></strong>will show just <em><strong>e</strong></em> level messages.</p>
+<p>The first parameter is a String called the TAG. This should be the class name that you're in, and the second parameter is called the message. You can simplify the TAG portion by declaring a String variable:</p>
+<p class="code"><strong> private static String TAG = "MainActivity";</strong></p>
+<p>and then put the variable TAG as the first parameter to the warning messages:</p>
+<p class="code"><strong>Log.d( TAG, "Message"); </strong></p>
+<h1 class="labStep">Lab Exercise step 2:</h1>
+<p>Put a Log.w message in all of the 6 life cycle functions (onCreate, onStart, onResume, onPause, onStop, onDestroy) that are in your MainActivity class, and make the messages to be an explanation of what is happening in each function. The descriptions are at the top of this page:</p>
+<p><img src="images/img_p1_6.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>Now debug your application and the program should stop at the first breakpoint that it finds:</p>
+<p><img src="images/img_p1_7.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>Notice that the line is highlighted in blue, and the debug window shows some information:</p>
+<p><img src="images/img_p1_8.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>At the top left, the resume button</p>
+<p><img src="images/img_p1_9.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>will resume running the program. Below that is the red square, which stops the program. Below that is the icon with two red circles, which lists all of your breakpoints in your program. Below that is the red circle with a diagonal line through it. This is the "mute" button for breakpoints. Clicking it will not remove the breakpoints, but the debugger will no longer stop at the breakpoints. Beside the buttons is the call stack:</p>
+<p><img src="images/img_p1_10.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>This shows you which function you are stopped in, and which line the program is about to run. If you scroll all the way down the list, you'll see that the program actually does start at a main() function, but it's part of Android, not your application. Beside that is the variables window , which shows you which variables are currently in your program, and what value they hold:</p>
+<p><img src="images/img_p1_11.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>Android Studio also puts the relevant values in your source code on the lines where they are used:</p>
+<p><img src="images/img_p1_12.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>Notice here that savedInstanceState: null is not part of the source code. It's actually the debugger showing you the values without you having to look at the variables window below. Go ahead and click on the crooked arrow button:</p>
+<p><img src="images/img_p1_13.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>This means debug until the next line. The program will stop and again show you the values there. The blue down arrow is the step into button, which will start debugging the first line of the function that you are currently debugging. If you look at the picture above, it would start debugging the Log.w( ) function. The blue upwards arrow means step out, meaning run to the end of the current function, and then stop at the next line after returning from the function. Go ahead and click the Resume button now.</p>
+<p><img src="images/img_p1_9.jpg" alt="Adding functions" title="Adding functions"></p>
+<h2>Starting an Activity</h2>
+<p>Back to some theory:</p>
+<p>Android uses the startActivity() function to launch another page, or <strong><em>Activity</em></strong>. Go to your activity_main.xml layout and design a layout that looks like this:&nbsp;<img src="images/img_p1_14.jpg" alt="Adding functions" title="Adding functions"> There is a TextView at the top that says <u><i>"Enter your email address:</i></u>"</p>
+<p>Below is an EditText with the <i>android:hint="Type email here"</i>.</p>
+<p>Below that is a TextView that says <i>"Type your password:"</i>.</p>
+<p>Below that is an EditText, with the<i><strong> android:inputType="textPassword"</strong></i>. This means that when you type, it replaces the text with "*" so that the password is not visible. This inputType parameter can also control the keyboard that appears when typing. Some common types are: <i>"number"</i>, <b>"textEmailAddress"</b>, <b>"numberDecimal</b>". Here is a good resource to learn more about EditText and input types:</p>
+<div>
+<div><a href="https://guides.codepath.com/android/Working-with-the-EditText">https://guides.codepath.com/android/Working-with-the-EditText</a></div>
+</div>
+<p>.</p>
+<p>At the bottom is a Button that says "Login".</p>
+<p>This interface should look like a typical application where you first have to authenticate yourself before going any further. Create a second page by selecting the "File" menu -&gt; "New" -&gt; "Activity" -&gt; "Empty Activity":</p>
+<p><img src="images/img_p1_15.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>Call this next activity "SecondActivity":</p>
+<p><img src="images/img_p1_16.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>Design your second page layout so that it looks like this:</p>
+<p><img src="images/img_p1_17.jpg" alt="Adding functions" title="Adding functions"></p>
+<p></p>
+<ol>
+<li>The TextView at the top is centered horizontally, and is 32 pixels from the top.</li>
+<li>The second row has an EditText that uses the Phone inputType. You can just select this from the widget palette: <img src="images/img_p1_18.jpg" alt="Adding functions" title="Adding functions"> Also on the second row is a button that says "Call number".</li>
+<li>The third row has an ImageView, with the<i> app:srcCompat="@android:drawable/ic_menu_camera"</i>, and a button that says "Change picture". The image ic_menu_camera is a picture that comes installed as part of Android so it's already on the phone. You don't have to download it. Now to go from your first page (MainActivity.java) to your second page (SecondPage.java), add a clickHandler on the Login button:
+<p class="code">loginButton.setOnClickListener( clk-&gt; { } );</p>
+<p>Now let's use the startActivity( ) to go from one page to another. Here is a brief tutorial on how to use startActivity(): <a href="https://developer.android.com/training/basics/firstapp/starting-activity">https://developer.android.com/training/basics/firstapp/starting-activity</a>. However in our case, we'll build an Intent object that goes to SecondActivity.java:</p>
+<p class="code">Intent nextPage = new Intent( MainActivity.this, SecondActivity.class);</p>
+<p>This intent says that you want to transition from MainActivity to SecondActivity. Then to actually make the transition, you call startActivity with the intent object:</p>
+<p class="code">startActivity( nextPage);</p>
+</li>
+</ol>
+<p>And that's it! Try it now on your app.</p>
+<p></p>
+<p>Lab step 3: Call startActivity in the onClick handler for the login button and you should see that it transitions to your new page. You can click on the back arrow to go back to the previous Activity:</p>
+<p><img src="images/img_p1_19.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>An Intent object also lets you send variables to the next Activity using the putExtra() functions:</p>
+<p><img src="images/img_p1_20.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>You can attach a variable under a variable name so that the next page can read those variables. Try to add the string that the user has typed in for the email address into the Intent: nextPage.putExtra( "EmailAddress", emailEditText.getText().toString() ); Put a breakpoint on that line and try running your app. Type something in the email address field and see what happens to the Intent object in the debugger:</p>
+<p><img src="images/img_p1_21.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>Notice that the Intent object <i><b>nextPage </b></i>has a variable called<b><i> mExtras</i></b>, and it's storing the data now that <b><i>EmailAddress=torunse@algonquincollege.com</i></b>, which is what I typed into my email address before pressing the login button. The startActivity() function will load SecondActivity, and there is a function called getIntent() which will return the Intent object that caused this transition. In the SecondActivity's onCreate() function, write code to retrieve the Intent object that has the variables:</p>
+<p class="code">Intent fromPrevious = getIntent();</p>
+<p>Put a breakpoint on this line and run your application. Type in an email address and go to the next page which should stop at the breakpoint. Look in the debugger:</p>
+<p><img src="images/img_p1_22.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>The mExtras variable has the data that was sent from MainActivity. To retrieve this data, you call getExtra(), but you have to modify it to the data type that is stored. In this case, "torunse@algonquincollege.com" is a String so you call getStringExtra("EmailAddress"). EmailAddress is the variable name that your stored it under. So now you can store the data from the previous page:</p>
+<p><img src="images/img_p1_23.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>This string should then be put at the top TextView on your page, but modify the TextView to say: "Welcome back " + emailAddress. One of the main points of this week's material is the startActivity( Intent i) function. The Intent class not only specifies the transition from one page to another, but you can also send variables to that next page:</p>
+<p class="code">Intent next = new Intent( FirstPage, NextPage);</p>
+<p></p>
+<p class="code">next.putInt("Age", ...);</p>
+<p></p>
+<p class="code">next.putString("Name", ...);</p>
+<p></p>
+<p class="code">next.putString("PostalCode", ...);</p>
+<p></p>
+<p>Then in the next page, you call:</p>
+<p class="code">Intent fromPrevious = getIntent();</p>
+<p></p>
+<p class="code">int age = fromPrevious.getIntExtra("Age");</p>
+<p></p>
+<p class="code">String name = fromPrevious.getStringExtra("Name");</p>
+<p></p>
+<p class="code">String pCode = fromPrevious.getStringExtra("PostalCode");</p>
+<p></p>
+<h2>Now some more theory about Prebuilt Intents:</h2>
+<p>You can also transition to some of the built-in Activities on the phone. You can make a phone call, send an SMS, take a picture, load Google maps, etc. In this case, you use the predefined Intent constants. For making a phone call, it's:</p>
+<p class="code">Intent call = new Intent(Intent.ACTION_DIAL);</p>
+<p>However the phone needs to know which number to call. For that, your store the phone number in the Intent :</p>
+<p class="code">call.setData(Uri.parse("tel:" + phoneNumber));</p>
+<p>Then you call startActivity(). Go ahead now and set a click listener to the "Call Number" button on your SecondActivity.java. When the user clicks the button, get the string from the Phone Number EditText and put that as the phone number to call in the Intent. However, this might cost money to make phone calls, so you have to ask the user's permission. This is done by declaring the <b>&lt;uses-permission&gt;</b>&nbsp; in the AndroidManifest.xml:</p>
+<p class="code">&lt;uses-permission android:name="android.permission.CALL_PHONE"&gt;</p>
+<p>Put this line between the &lt;manifest&gt; tag and the &lt;application&gt; tag:</p>
+<p><img src="images/img_p1_24.jpg" alt="Adding functions" title="Adding functions"></p>
+<p>Lastly, write an onClick() handler to change the profile picture. To take a picture with the phone, the Intent to use is:</p>
+<p class="code">Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);</p>
+<p>However in this case, we want the phone to return an Image from the next Activity . You have learned how to send data from one Activity to the next one, now you will learn how to get data back from the next activity .</p>
+<p>The old way of doing this was to use the function:<strong> startActivityForResult()</strong>, however this has been replaced in Android. The new way is to create an ActivityResultLauncher object:</p>
+<p class="code"><strong><em>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ActivityResultLauncher &lt;Intent&gt; cameraResult = registerForActivityResult( , );</em></strong></p>
+<p>The first parameter to pass in the function call above is called an ActivityResultContract:</p>
+<p class="code">new ActivityResultContracts.StartActivityForResult()</p>
+<p>This says that you are registering code for when the next activity finishes and returns a result. The second parameter to pass in is a callback function to receive data from the next activity:</p>
+<p class="code" style="padding-left: 60px;">new ActivityResultCallback&lt;ActivityResult&gt;() {</p>
+<p class="code" style="padding-left: 90px;">@Override</p>
+<p class="code" style="padding-left: 90px;">public void onActivityResult(ActivityResult result) {</p>
+<p class="code" style="padding-left: 120px;">if (result.getResultCode() == Activity.RESULT_OK) {</p>
+<p class="code" style="padding-left: 150px;">Intent data = result.getData();</p>
+<p class="code" style="padding-left: 120px;">}</p>
+<p class="code" style="padding-left: 90px;">}</p>
+<p class="code">}</p>
+<p>Putting these 3 parts together, you should have:</p>
+<p><img src="images/img_p1_25.jpg" alt="Launching intents" title="Launching intents"></p>
+<p>Lastly, launch the cameraIntent:</p>
+<p class="code">cameraResult.launch(cameraIntent); <br><br></p>
+<p><img src="images/img_p1_30.jpg" alt="Launching intents" title="Launching intents"></p>
+<p>Taking a picture on your phone also needs to declare a <b>&lt;uses-permission&gt; </b>in the AndroidManifest.xml. Add this line below the other line:</p>
+<p><b> &lt;uses-feature android:name="android.hardware.camera" android:required="true"&gt;</b>.</p>
+<p>This just says that your application requires a camera so don't install it on devices that don't have a camera.</p>
+<p>On line 39 in the picture above, the result of another activity can either <b>RESULT_OK</b>, or <b> RESULT_CANCELED</b>. If the result is RESULT_OK, then the camera activity sends back a Bitmap&nbsp; in the Intent data object. Android stores the image under the variable name "data", and it's saved as a Bitmap object:</p>
+<p class="code">Bitmap thumbnail = data.getParcelableExtra("data");</p>
+<p>Add this code to your "RESULT_OK" case, and then take the returned Bitmap object and set that to be the <b>src</b> parameter of the ImageView:</p>
+<p><img src="images/img_p1_26.jpg" alt="Launching intents" title="Launching intents"></p>
+<p>Now run your application and you should be able to login with an email address (Don't worry about checking the password), then the email address shows at the top of the next page with a welcome message. There should then be a phone number editText, which you can press the "Call number" button to actually make a phone call. Lastly , there should be an ImageView, and a "Change picture" button that lets you update the profile picture.</p>
+<p>If you don't have an actual phone, then you can use your laptop's webcam as the camera for your Android phone emulator . Click on the AVD manager button in AndroidStudio. From the virtual devices list, click on the pencil icon to edit your virtual device:</p>
+<p><img src="images/img_p1_27.jpg" alt="Launching intents" title="Launching intents"></p>
+<p>Then click on "Show Advanced Settings":</p>
+<p><img src="images/img_p1_28.jpg" alt="Launching intents" title="Launching intents"></p>
+<p>Find the Camera setting. Set both the Front and Back camera to "Webcam0":</p>
+<p><img src="images/img_p1_29.jpg" alt="Launching intents" title="Launching intents"></p>
+<p>Now when you use the Image Capture activity on your emulator, you should be able to take a real picture. This depends on your computer and the webcam device drivers. If you run into problems and you can't use it, just set the camera to "VirtualScene" and it will take a fake photo of a virtual room. You could also use an Android phone or tablet to take your pictures. This terminates the module on startingActivites. Go on to the next topic to learn how to save the data to the disk (or SD Card). If you want to learn more about the common intents on Android, you can read this guide: <a href="https://developer.android.com/guide/components/intents-common">https://developer.android.com/guide/components/intents-common</a>. You can set alarms on the phone, read the Calendar, etc.</p>
+<p></p>
+<p></p></body></html>

@@ -1,0 +1,68 @@
+Lab 4
+=====
+
+Your details:
+
+Name: Nouraldin Hassan
+
+IPv4 address: 192.168.10.1 (192.168.10.119)
+
+Subnet Mask: 255.255.255.0 
+
+MAC address: 7C:10:C9:24:56:0D 
+
+===================================================
+
+Your partner's details:
+
+Name: Christopher St. Aubin
+
+IPv4 address: 192.168.20.1 (192.168.20.120)
+
+Subnet Mask: 255.255.255.0 
+
+MAC address: 00:E0:4C:DE:FB:2D 
+
+===================================================
+
+Task 3 answers:
+
+Q6.
+
+b. Write the exact filter you used with the actual numbers:
+
+      http && ip.dst==192.168.10.119 && ip.src==192.168.20.120
+
+Q7.
+
+a.	Are they identical or different? Different
+
+b.	Answer the following questions if you answered "different" in 7a:
+
+	  i. Explain why they do not match?
+
+	     Each router has it's own MAC address and is constantly changing, so even though the connection would work, the destination and source would lead to the connected routers and computers rather than the server.
+
+	 ii. The destination MAC corresponds to which device?
+	     ASUSTek (7c:10:c9:24:56:0d)
+
+	iii. The source MAC corresponds to which device?
+	     BelkinIn (14:91:82:88:0d:6a)
+
+
+
+Q8.
+
+c.	Do you see any entries for your partner's IP or MAC?  No
+
+i.	Which entry served to communicate with your partner's laptop?
+	Copy and paste the specific ARP Table entry (one line) below:
+	
+	N/A
+
+
+
+Submit this answer sheet on Brightspace by the deadline.
+
+Complete the post lab quiz by the deadline.
+

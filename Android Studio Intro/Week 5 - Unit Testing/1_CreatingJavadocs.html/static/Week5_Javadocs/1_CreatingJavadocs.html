@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+  <link rel="stylesheet" href="../../css/main.css" type="text/css">
+  <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+  <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<p>JavaDocs are a standard way in Java of commenting your code.</p>
+<p></p>
+<p>In Git, checkout the master branch. It should still have your first lab work with a textView in the middle and a button at the bottom.</p>
+<p><img src="images/PastedImage_5yaqqgth2xd76g35t597jea3x4onwc0g00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>Create a branch from here called "Week 5". We will start with this as a basis for using JavaDoc and creating unit tests. Your MainActivity.java file should only have the onCreate() function, with just the setContentView() function call:</p>
+<p><img src="images/PastedImage_0exqnxttiw39ptq12cqma8p3fysohrww00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>Javadoc comments are like normal comments: <em><strong>/* This is a comment&nbsp; */</strong></em>, except that they start with 2 stars:&nbsp;<em><strong> /**&nbsp;&nbsp; This is a Javadoc comment */</strong></em>. You should put comments for your classes, your class variables (the ones with private, public, and protected in front of them), and the functions that you write that aren't part of Android. We (the professors) already know what functions like onStart, onResume, onPause, startActivity, etc. are used for, however if you declare a function that isn't inherited from a parent class, then you should comment what it does. Basically, if there's no <em><strong>@Override</strong></em> for the function, then it should be commented.</p>
+<p></p>
+<p>In this week's lab, you will write a simple password checker app. Add an EditText to your layout just below the TextView. It should be centered horizontally, and 32 pixels below the "Hello World" text. Change the string "Hello World" to "Type your Password:".&nbsp; For the button at the bottom, change the text to "Login":</p>
+<p><img src="images/PastedImage_9o1mn521r93yavirmg56ivxegdfbuu1o00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>Now think about which variables you'll need in Java. Give each of the three items an id, and then use findViewById() to load them in Java:</p>
+<p><img src="images/PastedImage_6ons0cyq5n65ice7rdkjuz2yjkjqoeck00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p></p>
+<p>Add an onClick listener to the button so that when you click on the button, you will read the string in the EditText and check if the password is too simple or not:</p>
+<p><img src="images/PastedImage_4p33s41opcr02cbpdq02yfst387fll1500151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>You should create this function somewhere within the MainActivity class. This function should check if this string has an Upper Case letter, a lower case letter, a number, and a special symbol (#$%^&amp;*!@?). If it is missing any of these 4 requirements, then show a Toast message saying which requirement is missing, like "Your password does not have an upper case letter", or "Your password does not have a special symbol".</p>
+<p>Start the function declaration somewhere in your class:</p>
+<p><img src="images/PastedImage_yg6gp0zrezwoy2luybb5wtg7fw7rqwnn00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>Since you are writing this function and it's not an inherited function, you should write a Javadoc comment. Start by writing /** somewhere above the function declaration. Then hit the Return (or Enter) key and Android Studio should do the rest of the comment format for you:</p>
+<p><img src="images/PastedImage_eqzddfhybu2cm068m8cgy530ln9yxvtv00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>The<strong> <em>@param</em> pw</strong> is meant to comment what the function parameter <strong>pw</strong> is in this case. You should write that pw is a String that is being checked:</p>
+<p><img src="images/PastedImage_u9lc4a6lvd6ol5rktbyqelvw6txmcjge00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>The first line of the Javadoc comment should be a description of what this function does. Go ahead and write a sentence describing the purpose of the function.</p>
+<p><img src="images/PastedImage_t24jiy0fwngd3cvu0ok91or9ssfmy32a00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p></p>
+<p>Notice that this function returns void. Change the return type to boolean, meaning that you should return true if the password is complex enough, and false if it is not complex enough.</p>
+<p>Inside the Javadoc, use the @return annotation to describe what this function returns:</p>
+<p><img src="images/PastedImage_96jq4eogn396oix3ulte8eqik9l3lgko00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>Go ahead and implement the function to check if the String pw has all the necessary requirements. Write a for loop to iterate over each character in the String, and use the Character class' static functions isDigit( char c ), isUpperCase(char c), isLowerCase(char c). To check if a character matches any of those conditions. Before you start your for loop, use some boolean variables:</p>
+<p><strong>boolean foundUpperCase, foundLowerCase, foundNumber, foundSpecial;</strong></p>
+<p><strong>foundUpperCase = foundLowerCase = foundNumber = foundSpecial = false;</strong></p>
+<p>As you find any of the conditions, set the boolean variable to true. When you are done the for loop, check that each if the variables have been set to true:</p>
+<p style="padding-left: 30px;"><strong>if(!foundUpperCase)</strong><br /><strong>{</strong></p>
+<p style="padding-left: 30px;"><strong>&nbsp;&nbsp;&nbsp; Toast.makeText(&nbsp; ... ) ;// Say that they are missing an upper case letter;</strong></p>
+<p style="padding-left: 30px;"><strong>&nbsp;&nbsp;&nbsp; return false;</strong></p>
+<p style="padding-left: 30px;"><strong>}</strong></p>
+<p style="padding-left: 30px;"><strong>else if( ! foundLowerCase)</strong><br /><strong>{</strong><br /><strong>&nbsp;&nbsp;&nbsp;&nbsp; Toast.makeText( ... ); // Say that they are missing a lower case letter;</strong></p>
+<p style="padding-left: 30px;"><strong>&nbsp;&nbsp;&nbsp; return false;</strong></p>
+<p style="padding-left: 30px;"><strong>}</strong></p>
+<p style="padding-left: 30px;"><strong>else if( ! foundNumber) { ....}</strong></p>
+<p style="padding-left: 30px;"><strong>else if(! foundSpecial) { ... }</strong></p>
+<p style="padding-left: 30px;"><strong>else</strong></p>
+<p style="padding-left: 30px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp; return true; //only get here if they're all true</strong></p>
+<p>There's no function for isSpecialCharacter, so you'll have to write one:</p>
+<p style="padding-left: 30px;"><strong>boolean isSpecialCharacter(char c)</strong></p>
+<p style="padding-left: 30px;"><strong>{</strong></p>
+<p style="padding-left: 30px;"><strong>//return true if c is one of: #$%^&amp;*!@?</strong></p>
+<p style="padding-left: 30px;"><strong>//return false otherwise</strong></p>
+<p style="padding-left: 30px;"><strong>}</strong></p>
+<p></p>
+<p>The most efficient way to write the function would be to use the fact that switch/case statements will all follow the same path until they find a <strong>break;</strong> or <strong>return</strong> statement:</p>
+<p><img src="images/PastedImage_eay6945y40vyxb0faqmu8vk5vrru5ifq00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>Each of these cases will return true since there's no break; statement between them. Just fill out the missing cases so that these are all listed: <strong>#$%^&amp;*!@?</strong></p>
+<p>If the char c is not one of the cases, then it will return false. You must also write the Javadoc comment for this function!&nbsp; Make sure that you write a clear description on the first line after the&nbsp; opening <strong>/**</strong> . Also include the <strong>@param,</strong> and <strong>@return</strong> symbols to describe the parameter, and what this function returns.</p>
+<p>Once you are done implementing your checkPasswordComplexity() function, test your application to make sure it works. If you type in a valid complex password, then you should not see any Toast messages. Since your function returns a boolean, you can check it in an if() statement. If it returns true, set the TextView to "<strong>Your password meets the requirements"</strong>. Otherwise, set the TextView to "<strong>You shall not pass!</strong>".</p>
+<p>Just to practice documenting class variables, move all of the variables you declared in the onCreate function so that they appear at the top of the class:</p>
+<p><img src="images/PastedImage_opqogp35s86361jmgl8q5vec21y6hqye00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>Declare each of the variables as private, and then start a JavaDoc comment above each variable:</p>
+<p><img src="images/PastedImage_goqygyopdfyudov7cb6w32xyt1odcg0o00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>Finish off the descriptions of each variable. Lastly, go to the class declaration and put a JavaDoc comment above the line:</p>
+<p><img src="images/PastedImage_f5ggot6v280930y0ru8ybgnj7nnq0r6x00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>Put a description of what this page does. You should also use the @author symbol followed by your name to say that you wrote this code.</p>
+<p>Use the @version to say that this is version 1.0 of your code, for example:</p>
+<p><img src="images/PastedImage_eqbm4gji4isjxnnpizgi66mavceyasvt00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<h2>Generating the JavaDocs:</h2>
+<p>Go to the "Tools" menu in Android Studio and select "Generate JavaDoc..."</p>
+<p><img src="images/PastedImage_1a8us7gewryu0wrw8ynx2i5r0pv50i5c00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p></p>
+<p>Click on the Folder icon beside the "Output directory:"</p>
+<p><img src="images/PastedImage_gw89d5313mm9856kv4hkj2d045iohsp700151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>Click on the "New folder" button to create a JavaDoc folder in your project:</p>
+<p><img src="images/PastedImage_qgdjo3in4lhmo969mu0w3hm96p84o4v900151640220.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>after:</p>
+<p><img src="images/PastedImage_lmizby80sf4ppdt9x9rradbkczukfj6p00151466846.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>and click "Open". Then, change the access level slider all the way up to "Private" so that it includes private variables and functions. Also, click the checkbox beside "@author" and "@version" so that it includes those tags in the Javadocs. Then click "Ok":</p>
+<p><img src="images/PastedImage_vy2pjaazs9pibe2kiltwprd0sqxifuu400151640220.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true" /></p>
+<p>At the moment, generating the JavaDocs doesn't work through AndroidStudio. However, having the comments in the code is a good idea so that
+other programmers can read it. At this point, check in your code on the Week5 branch but do not push your master branch yet to the server.
+  There is another way to merge through GitHub and you'll practice that next. Checkout your Week5 branch, but don't push it to github yet. Next, go to the next module to learn how to create unit tests.</p>
+</body>
+</html>

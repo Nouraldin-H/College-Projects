@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <link rel="stylesheet" href="../../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+    <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+    <title>Recycler View</title>
+  </head>
+  <body>
+  <h1>Configuring the Adapter functions</h1>
+    <p>The next step is to decide how to design a row in the list. We want to
+      show a text message, and the time it was sent, and normally a conversation
+      will have message that you send on one side, and messages that the other
+      person sent will be on the other side:</p>
+    <p><img src="images/img_p2_1.png"></p>
+    <p>So now we have to decide how to show this. Should the message and time be
+      on the same line? Or should the time be above the message as shown in the
+      picture above? You need to create a layout file where can test out which
+      looks better. Right-click on the res/layout folder and select "New" -&gt;
+      "Layout Resource File".</p>
+    <p><img src="images/img_p2_2.png"></p>
+    <p>Call this new file "sent_message". You can't use capital letters or
+      spaces in the file name. The root tag will be a ConstraintLayout.</p>
+    <p><img src="images/img_p2_3.png"></p>
+    <p>Drag two TextViews on the screen:</p>
+    <p><img src="images/img_p2_4.png"></p>
+    <p>One TextView will be for the message. Move one TextView to the top left
+      corner, and constrain it to the top and left side of the parent. Set the
+      text to be "Message goes here" just so you know that is where the text
+      will go later. We'll replace the String later in the code. Give it the id
+      of "@+id/message". Take the other TextView, and constrain it to the bottom
+      of the other TextView, but this time constrained to the opposite edge of
+      the screen. Give it the text "Time goes here". You'll replace that string
+      later in code as well. Give it the id of "@+id/time":</p>
+    <p><img src="images/img_p2_5.png"></p>
+    <p>Remember now that our rows have two TextViews that we want to change in code. Go back to your MyRowHolder class and declare two variables
+      to load them in code. The whole point of the MyRowHolder class is to maintain variables for what you want to set
+    on each row in your list.</p>
+    <p><img src="images/img_p2_8.png"></p>
+    <p>The view that is passed in as a parameter represents the ConstraintLayout
+      that is the root of the row. This view has the two TextViews as sub-items
+      so you have to find them by id, like you would normally do for an Activity
+      in the onCreate function. Modify your constructor:</p>
+    <p><img src="images/img_p2_9.png"></p>
+    <p>This time make sure that you are calling findViewById from the itemView
+      parameter.</p>
+
+    <p>Now let's implement the onCreateViewHolder function. This is responsible
+      for creating a layout for a row, and setting the TextViews in code. You
+      can use ViewBinding to load your views class to load a layout, however the onCreateViewHolder has
+      an <b>int viewType</b> parameter to tell what kind of viewType you should be loading. By default, it is 0
+      but there is a getViewTypeForPosition() function where you can change what viewType gets passed in for a
+      given row position.
+      For now, just implement normal ViewBinding loading:
+      <img src="images/viewBindingLoading.png">
+      all the onCreateViewHolder() needs to do is to load the correct View for the type <b>viewType</b>. We'll learn how to modify
+      that in a little bit.
+    </p>
+<hr>
+
+<h2>onBindViewHolder</h2>
+<p>The funcion onBindViewHolder is where you set the objects in your layout for the row. Right now, your MyRowHolder class
+  has two TextView objects. The onBindViewHolder() function is meant to set the data for your ViewHolder
+  object that will go at row <b>position</b> in the list:
+
+  <pre>
+    public void onBindViewHolder(@NonNull MyRowHolder holder, int position){
+      holder.messageText.setText("");
+      holder.timeText.setText("");
+    }</pre>
+
+</p>
+
+    <p>At this point, we need some data that will be shown in the list. We can add an ArrayList of String objects that
+      will each go on a separate row in the list. Above the onCreate() function, declare an class variable:
+  <pre>
+    ArrayList&lt;String&gt; messages = new ArrayList<>();</pre>
+
+
+
+      <p>Now in the onBindViewHolder function, we can retrieve the object that goes in row "position" in this list:
+    <pre>
+    String obj = messages.get(position);</pre>
+    <p>Now we'll set the messageText in onBindViewHolder:
+    <pre>
+      holder.messageText.setText(obj);</pre></p>
+
+
+    <hr>
+<h2>int getItemCount()</h2>
+    <p>The getItemCount function should just return the number of rows in the list, and since we want to show
+    whatever is in our ArrayList, the number of rows will be just the size of the list:
+    <pre>
+    return messages.size();</pre></p>
+    <hr>
+    <h2>int getItemViewType(int position)</h2></h2>
+    <p>There is another function called getItemViewType(int position). This function returns an int
+    which is the parameter which gets passed in to the <br><b>onCreateViewHolder(</b>ViewGroup parent, <b>int viewType</b>) function</p>
+If you want to load different layouts for different rows, this function lets you return an int to indicate
+    which layout to load. For now, we are just loading one layout, so you can just return 0 for this function:
+    <pre>
+      getItemViewType(int position){
+        return 0;
+      }
+    </pre>
+<hr>
+    <h2>Testing by adding data</h2>
+
+
+    <p>We will need to add data to our messages ArrayList, so let's add an EditText to the bottom of the layout:
+<img src="images/sendLayout.png"/>
+
+    </p>
+    <p>Now all that's left to do is to add a click listener to the button in onCreate:
+    <img src="images/addingClickListener.png"> </p>
+    <p>Go ahead and try that now. If you type some text into the EditText and click the button, it
+    should clear the EditText, and add the string to the messages ArrayList. However, the RecyclerView
+    doesn't show the new element. That's because whenever the ArrayList changes, you have to notify the
+    Adapter object that something has been inserted, or deleted. For this, the Adapter class has a
+    <b>notifyItemInserted(int position)</b> function, which tells the Adapter which row has to be redrawn.
+    Since you're adding to the back of the ArrayList, the row that needs updating is <b>messages.size()-1</b>
+    <img src="images/notifyItemInserted.png"> </p>
+    <p>The myAdapter variable above should be a class variable declared outside of the onCreate function:<br>
+    <pre>
+          private RecyclerView.Adapter<MyRowHolder> myAdapter;
+    </pre><br>
+    <p>Then to initialize the variable, simply add it to the line where you call <b>new RecyclerView.Adapter&lt;MyRowHolder&gt;</b>
+<img src="images/addMyAdapter.png"><br>
+    Now whenever you add items to the ArrayList, you must call <b>notifyItemInserted(int position);</b><br>
+    Whenever you remove something from the list, you must call <b>notifyItemRemoved(int position);</b> and the adapter
+    will remove that single row.
+
+    Whenever your entire ArrayList has changed (like loading from a database), then you call <b>notifyDatasetChanged()</b></p>
+<hr>
+    <h2>LayoutManager
+    </h2>
+    <p>The RecyclerView supports 1 or more columns for showing data, and you can either scroll
+      in a Vertical or Horizontal direction through the items.
+      To specify a single column scrolling in a Vertical direction, you call:
+      <pre>
+      binding.recycleView.setLayoutManager(new LinearLayoutManager(this)); </pre>
+<p>If you try it now, you should be seeing messages being added one at a time every time you click the "Send" button. The EditText
+  field is being cleared so that you can write a new message.
+    </p>
+  <hr>
+  <h2>Surviving Rotation Changes</h2>
+  <p>If the app is working and you've added some messages, go ahead and add some messages. Then rotate your
+  emulator / device by 90degrees. Whenever Android has a rotation change, it finishes the current activity and then starts a brand new Activity
+  in the new orientation. This means that the previous activity gets removed and new one goes through the process of calling:
+  <ol>
+      <li>onCreate</li>
+      <li>onStart</li>
+      <li>onResume</li>
+    </ol>
+    <p>
+    It also means that a new ArrayList gets allocated with all the previous elements deleted. You don't want
+    all of your messages removed whenever the user rotates the device, so we'll use a ViewModel class here to make the data
+    survive the rotation change. In the data package, create a <b>ChatRoomViewModel</b> that extends ViewModel.
+    Here we want the whole ArrayList to survive, so we'll declare a <b>MutableLiveData&lt; ArrayList&lt;String&gt; &gt;</b><br>
+    <pre>
+    public class ChatRoomViewModel extends ViewModel {
+      public MutableLiveData&lt;ArrayList&lt;String&gt;&gt; messages = new MutableLiveData< >();
+    }</pre>
+
+    <br><p>
+    Then in ChatRoom.java, change the ArrayList&lt;String&gt; to:
+    <pre>
+          ChatRoomViewModel chatModel ; </pre>
+    <br><p>
+    then initialize the onCreate function:
+    <pre>  chatModel = new ViewModelProvider(this).get(ChatRoomViewModel.class);</pre><br>
+    <p> and next retrieve the ArrayList<> that it is storing:
+      <pre>messages = chatModel.messages.getValue();</pre><p>
+      Then verify if the chatModel.messages variable has never been set before. The first time you come to the ChatRoom class
+    you will have to initialize the ChatModel class:
+    <pre>
+      if(messages == null)
+      {
+        chatModel.messages.postValue( messages = new ArrayList&lt;String&gt>();
+      }
+    </pre><p> This way, the ViewModel will keep a version of your ArrayList of data so that it survives orientation changes of your app.
+      Go ahead and try it now. Add some messages to your list, and rotate the phone a few times. The ArrayList
+      should not be reset at any time.
+    </p>
+
+  <p>Go to the next module and read how to modify this example into your final version for Lab 6:</p>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="../../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+    <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+    <title>Recycler View</title>
+  </head>
+  <body>
+<section class="section is-medium">
+<h2 class="title">Practice - Lab work</h2>
+</section>
+<p>Open your AndroidManifest and make sure that the &lt;intent-filter&gt; is inside the declaration of the ChatMessage tags:</p>
+<pre>     &lt;activity&gt;
+       android:name=".ChatRoom"
+       android:exported="true"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+     &lt;/activity&gt;</pre>
+<p>The activity has <br><b> </b></p>
+<pre><b>      &lt;action android:name="android.intent.action.MAIN" /&gt;<br>
+      &lt;category android:name="android.intent.category.LAUNCHER" /&gt;</b></pre>
+<p>in the intent-filter tags meaning that it is the activity that gets launched when the application is started.</p>
+<p>Take the starting point that was covered in the previous pages but now modify the ArrayList&lt;String &gt; messages so that it holds a new <b>ChatMessage</b> class that you must create:</p>
+<pre>    ArrayList&lt;ChatMessage&gt; messages;</pre>
+<p></p>
+<p>This ChatMessage class will store the data required for each message sent (message, time sent, and which button was clicked)</p>
+<p>Start by creating a ChatMessage class that has:<b> </b></p>
+<p><b></b></p>
+<ul>
+<li><b>String message;</b></li>
+<li><b>String timeSent;</b></li>
+<li><b>boolean isSentButton;</b></li>
+</ul>
+<p></p>
+<p>Then create a constructor for that class that sets all 3 values:</p>
+<pre>    ChatRoom(String m, String t, boolean sent)
+    {
+      message = m;
+      timeSent = t;
+      isSentButton = sent;
+    }</pre>
+<p>The constructor should be the only way possible for setting the values, but you should write 3 getter functions that return the values of the variables.</p>
+<p>Next modify your ChatRoom layout so that there is also a Receive button on the opposite side of the EditText: <img src="images/sendReceiveLayout.png"></p>
+<p>In the click handler for the Send button, you are no longer adding a String to the messages ArrayList but instead create a new ChatMessage object that takes the string message that was typed, a String representing the time that the button was clicked, and a boolean <b>true</b> to specify that it was the Sent button that was clicked<br>As for a String representing the time sent, use this:</p>
+<pre>      SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd-MMM-yyyy hh-mm-ss a");
+      String currentDateandTime = sdf.format(new Date());</pre>
+<p>In the format string, the E means day of the week, and having 4 EEEE means write the whole word of day of the week. If you only use 2 E, then you get the first 3 letters of days of the week: Mon, Tue, Wed, Thu, etc. The next line creates a new Date() object, which will represent the current date and time of day. The <b>format()</b> function just converts the time to whatever format you want to read it. Take the String message, the currentDateandTime, and true (for the Send button) and create a new ChatMessage object and add it to the list.</p>
+<p>Next copy the code for the Send button click handler and add the same for the Receive button click handler. It should also add a ChatMessage object to the messages ArrayList but this time, you put <b>false</b> for the boolean value to indicate that this was not the Send button that caused this ChatMessage to be created. You will also need a receive_message.xml layout file which should be the same as the send_message, only flipped to be a mirror copy on the opposite side of the screen.</p>
+<p>Next, you'll need to modify the onBindViewModel() function since you're not just displaying String objects. Now you're representing a ChatMessage object that has a message, and also a String for timeSent. You'll need to set the text for the timeSent TextView as well as the message. You'll also have to modify the MyRowViews() constructor so that it also finds the id of the TextView for the time sent, in addition to the message TextView.</p>
+<p>Lastly, you'll have to modify the <b>getItemViewType() </b>function to check what kind of ChatMessage object is at row <b>position</b> If the <b>isSend</b> is true, then return 0 so that the onCreateViewHolder checks the viewType and inflates a send_message layout. If <b>isSend</b> is false, then <b>getItemViewType</b> returns 1 and onCreateViewHolder checks if the viewType is 1 and inflates a receive_message layout.</p>
+<p>Sender images - you can also add an ImageView on the send_message and receive_message rows so that it looks like a real chat program. Go to&nbsp;<a href="https://pixabay.com/images/search/avatar/"></a></p>
+<p><a href="https://pixabay.com/images/search/avatar/">https://pixabay.com/images/search/avatar</a></p>
+<p>and download 2 images to use in your chat. Save one image as <strong>send_image.png</strong>, and the other as <strong>receive_image.png</strong>. Move both the images to your <strong>drawable</strong> folder and make sure you add them to git tracking so that they get uploaded to your github repository. Then go to your layout <strong>send_message.xml&nbsp;</strong>and add an ImageView between the Message TextView and the edge of the screen. Your image might be really large, so you can set <strong>layout_width</strong> and l<strong>ayout_height</strong> to <strong>50dp</strong> to make it much smaller:</p>
+<p><img src="images/img_p2_35.png"></p>
+<p>Do the same (but mirror opposite) to the <strong>receive_message.xml</strong> layout:</p>
+<p><img src="images/img_p2_36.png"></p>
+<p></p>
+<p>If your app can now let a user type into the EditText and hit the Send button, then it should show up in the RecyclerView with the message and string on one side of the screen. If the user types the text and presses the Receive button, then the message should appear on the opposite side of the screen. If the messages appear in the correct order then you are done the lab.</p>
+<hr>
+<h2><span style="color: #cc0000;">Marks for Lab 6 (6 Total)<br></span></h2>
+<table>
+<tbody>
+<tr>
+<th>Item</th>
+<th>Marks</th>
+</tr>
+<tr>
+<td>The Send and Receive buttons add the message that was written to the list, and loads the correct layout</td>
+<td>(2 marks)</td>
+</tr>
+<tr>
+<td>The ChatRoomViewModel class stores has a MutableLiveData &lt; &gt; variable that stores the ArrayList</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>The ArrayList and data survive rotation changes of the device and no data is lost.</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>The ChatRoom activity is the activity that gets started when launching the app. MainActivity and SecondActivity are still in the code, however there is no way to get to them.</td>
+<td>(2 mark)</td>
+</tr>
+</tbody>
+</table>
+</body></html>

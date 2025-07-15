@@ -1,0 +1,200 @@
+/* Global */
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #e4dcc2;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1.2em;
+}
+
+nav ul li {
+  display: inline;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  transition: color 0.5s ease;
+}
+
+nav ul li a:hover {
+  color: #ff9900;
+  -webkit-transition: 0.5s ease;
+            transition: 0.5s ease;
+    border-bottom: solid 1px blue;
+}
+
+main {
+  padding: 20px;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Landing Page */
+
+#landing {
+  text-align: center;
+  margin-top: 50px;
+}
+
+#landing h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+#landing img {
+  width: 200px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#landing a {
+  color: #2600ff;
+  text-decoration: none;
+  border-bottom: solid 1px transparent;
+}
+
+#landing a:hover {
+  /* color: #ff9900; */
+  -webkit-transition: 0.5s ease;
+            transition: 0.5s ease;
+  border-bottom: solid 1px #4400ff;
+}
+
+/* Resume Page */
+#resume {
+  text-align: left;
+  margin-top: 50px;
+}
+
+#resume h1{
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+#resume h1 + p{
+  text-align: center;
+}
+
+#resume-labs {
+  text-align: center;
+  margin-top: 50px;
+}
+
+#resume-labs h1 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+#resume-labs ul {
+  list-style: none;
+  padding: 0;
+}
+
+#resume-labs a {
+  color: #2600ff;
+  text-decoration: none;
+  border-bottom: solid 1px transparent;
+}
+
+#resume-labs a:hover {
+  /* color: #ff9900; */
+  -webkit-transition: 0.5s ease;
+            transition: 0.5s ease;
+  border-bottom: solid 1px #4400ff;
+}
+
+#resume-labs ul li {
+  margin-bottom: 10px;
+}
+
+#resume-labs ul li img {
+  width: 100px;
+  height: auto;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Courses Page */
+#search-bar {
+  margin-bottom: 20px;
+}
+
+#course-list {
+  list-style: none;
+  padding: 0;
+}
+
+#courses {
+  text-align: center;
+  margin-top: 50px;
+}
+
+#courses h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+#course-list {
+  text-align: left;
+}
+
+#course-list li {
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#course-list li img {
+  width: 100px;
+  height: auto;
+  float: left;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+  /* Mobile styles */
+  #landing img {
+    width: 150px;
+  }
+
+  #course-list li img {
+    width: 80px;
+  }
+}
+
+@media (min-width: 601px) {
+  /* Desktop styles */
+  #landing img {
+    width: 250px;
+  }
+
+  #course-list li img {
+    width: 120px;
+  }
+}

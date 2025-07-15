@@ -1,0 +1,34 @@
+<!-- Name: Nouraldin Hassan <br>
+Date: 2023-05-24 <br>
+Section: CST 8285 <br>
+Lab: 300/302 <br>
+File: customer.html <br> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>customer.html</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="lab 2 website of customer">
+    <meta name="keywords" content="form, customer">
+    <meta name="author" content="Nouraldin Hassan">
+    <meta name="date" content=date>
+    <meta name="section" content="CST8285 300/302">
+    <meta name="file" content="customer.html">
+    <meta name="lab objective" content="make an html that processes requests from the user, or customer.">
+</head>
+
+<body>
+	<!-- text goes here -->
+    <footer>
+        <div>
+            <p>Last Updated: <time datetime="2023-05-17">2023-05-17</time>
+                <br>Name: Nouraldin Hassan
+                <br>Copyright 2023 Nouraldin Hassan
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
+<!--   
+quick comment test
+-->

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html><head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="../../css/main.css" type="text/css">
+  <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+  <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+</head><body><h1>Different layout folders</h1>
+<p>In this course, you have learned that if you put images in different Drawable folders followed by the two-letter language code, Android will look in that folder to load the file. The same thing happens for layout files.</p>
+<p>Instead of using the device's language, you will use the device pixel size. Android uses the idea of a "Smallest Width", which is the smaller number of the width and height. There are two ways of holding a tablet, one is portrait mode, and the other is landscape mode.</p>
+<p><img src="https://developer.android.com/images/screens_support/layout-match-parent_2x.png" alt="" style="display: block; margin-left: auto; margin-right: auto;" width="500"></p>
+<p>For a display that is 800x600 pixels, the smallest width is 600 (the smaller number). <br>For a display that is 1024 x 768, the smallest width is 768 (the smaller number). <br>For a display that is 1920x1080, the smallest width is 1080.</p>
+<p>There are some common folder names for different tablet sizes:</p>
+<p><strong>layout-sw600dp</strong> - this is for 7" tablets</p>
+<p><strong>layout-sw720dp</strong> - this is for 10" tablets</p>
+<p>There are also two names for any size display:</p>
+<p><strong>layout-port</strong> - for any device in portrait orientation.</p>
+<p><strong>layout-land</strong> - for any device in landscape mode.</p>
+<p>To create a layout for a tablet, create a new layout folder called <strong>layout-sw600dp</strong>, to support any tablets larger than 7". Copy your <strong>activity_chat_room</strong><b>.xml</b> file and paste the file into the new folder that you created.</p>
+<p><img src="images/addSecondLayout.png"></p>
+<p>For a large tablet, you have enough space on the screen to show more than just a list of items. You have a list on the left, and room beside the list to show details about a selected item, like in the picture below:</p>
+<p><img src="https://www.brighthub.com/ezoimgfmt/img.bhs4.com/97/5/975692dcb9228f34f0cfb5da6501f968307070fb_large.jpg" alt="How to Use Android Tablet Email Apps"></p>
+<p>In order to reserve room on screen for loading something else later, we will use a <b>FrameLayout</b>. A Framelayout is a layout that can only hold 1 item, so its job is really just to reserve space on the screen for what will be loaded later.<br>For the tablet version of activity_chat_room.xml in the <b>layout-sw600dp</b> folder, let's make the RecyclerView have width of 300dp instead of match_parent. Then place the FrameLayout next to the RecyclerView and buttons. I made the background colour of the FrameLayout purple just so that you can see the FrameLayout and where it is in the screen.</p>
+<p><img src="images/frameLayout.png"></p>
+<p>To see what it looks like on a Tablet, and you should create a 10" Tablet emulator:</p>
+<p><img src="images/File_npg6shicmm9cut386ypc6755evpi1ktv00152296770.png"></p>
+<p>You should use the same Android 27 x86_64 image that you downloaded for the phone that you've created. The ChatRoom.java loads the activity_chat_room.xml in both devices, however they are located in different folders.</p>
+<p>On a phone, ChatRoom looks the same as before:</p>
+<p><img src="images/File_plxpjyhfylmefttvuxpncaszyawis9f600152296770.png"></p>
+<p></p>
+<p>On a tablet, ChatRoom will load the other layout for a tablet (layout-sw600dp):</p>
+<p><img src="images/frameLayout.png"></p>
+<p>Now you should comment out the code you wrote for deleting a message from the RecyclerView.</p>
+<p><img src="images/File_b8w3p3p1o3ywzgsu15rot9rgc5bud2op00152296770.png"></p>
+<p>Instead we will use the onClickListener to show details about the message on the side if it's a tablet, or we will load a new fragment if it's a phone. To do this, we'll add a variable to the ChatRoomViewModel class that before was storing the ChatMessages to survive rotation changes. In ChatRoomViewModel, create a variable of type <b>MutableLiveData&lt;ChatMessage&gt; </b>:</p>
+<pre>  public class ChatRoomViewModel extends ViewModel {
+
+    public MutableLiveData&lt;ArrayList&lt;ChatMessage&gt;&gt; messages = new MutableLiveData&lt; &gt;();
+   <b> public MutableLiveData&lt;ChatMessage&gt; selectedMessage = new MutableLiveData&lt; &gt;();</b>
+
+}</pre>
+<p><br>Now in the ChatRoomActivity class, where you used to have your AlertDialog about deleting the object, instead you should find the selected chat message and post that value to the selectedMessage variable you just created:</p>
+<pre> itemView.setOnClickListener( click -&gt; {
+    int position = getAbsoluteAdapterPosition();
+    ChatMessage selected = messages.get(position);
+
+    chatModel.selectedMessage.postValue(selected);
+  });</pre>
+<p>Then in the onCreate() function, register as a listener to the MutableLiveData object:</p>
+<pre> chatModel.selectedMessage.observe(this, (newMessageValue) -&gt; {
+
+  });</pre>
+<p>Now whenever the user clicks on a row, you can retrieve the ChatMessage object at that position, and post it to the ViewModel as the new value. Then, in the observe function, you can create a new Fragment object to show the details for that object.</p>
+<p>Move on to the next module to learn how to display the ChatMessage using a Fragment object</p></body></html>

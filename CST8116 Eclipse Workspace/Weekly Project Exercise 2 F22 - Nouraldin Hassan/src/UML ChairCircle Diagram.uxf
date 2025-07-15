@@ -1,0 +1,26 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><help_text>Space for diagram notes
+</help_text><element><id>UMLClass</id><coordinates><x>10</x><y>10</y><w>400</w><h>320</h></coordinates><panel_attributes>Chair (SimpleClass)
+--
+-radius:double
+--
++getRadius():double
++setRadius(value:double):void
++calculateCircumference():double
++calculateArea():double
++toString():String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>470</x><y>20</y><w>400</w><h>320</h></coordinates><panel_attributes>Program (SimpleClass)
+--
+
+--
+_+main(args:String[]):void_</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>470</x><y>360</y><w>380</w><h>310</h></coordinates><panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::FatClass
+{Some Properties}
+--
+-id: Long
+_-ClassAttribute: Long_
+--
+#Operation(i: int): int
+/+AbstractOperation()/
+--
+Responsibilities
+-- Resp1
+*-- Resp2*</panel_attributes><additional_attributes></additional_attributes></element></diagram>

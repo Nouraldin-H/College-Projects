@@ -1,3 +1,6 @@
+# Custom
+**/.metadata/.plugins/org.eclipse.*/*
+
 # Compiled class file
 *.class
 
@@ -22,3 +25,130 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+tmp/
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+out/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Gradle
+.gradle/
+build/
+
+# Maven
+target/
+
+# VS Code
+.vscode/
+
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# dotenv environment variables
+.env
+.env.*
+
+# Build output
+dist/
+build/
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm/
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Next.js
+.next/
+out/
+
+# Nuxt.js
+.nuxt/
+dist/
+
+# Gatsby
+.cache/
+public/
+
+# VuePress
+.vuepress/dist
+
+# Storybook
+.storybook-out/
+.storybook-static/
+
+# Coverage
+coverage/
+
+# VS Code
+.vscode/
+
+# Mac & system files
+.DS_Store
+Thumbs.db
+
+# Environment Variables
+.env
+.env.*
+
+# Android Studio / Gradle
+*.apk
+*.ap_
+*.dex
+*.class
+*.so
+*.jar
+*.keystore
+
+# Android build folders
+/build/
+*/build/
+captures/
+.externalNativeBuild/
+.cxx/
+local.properties
+.gradle/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Android Lint & cache
+lint/intermediates/
+lint/generated/
+lint-report.html
+
+# NDK
+obj/
+
+# Android Studio user-specific files
+*.jks
+*.hprof

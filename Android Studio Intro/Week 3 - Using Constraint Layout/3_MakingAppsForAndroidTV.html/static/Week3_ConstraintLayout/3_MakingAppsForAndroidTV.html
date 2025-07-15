@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html><head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+  <link rel="stylesheet" href="../../css/main.css" type="text/css">
+  <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+  <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+
+</head><body><section class="section is-medium">
+<h2 class="title">Theory</h2>
+</section>
+<p>You can think of an Android TV as just a large phone or tablet. An Android TV still runs Android, but it doesn't have a touch screen. Also, TVs typically have a resolution of 1920x1080, or maybe 4k screens. Before you continue, make a branch of your code called "Week3_TV", and make sure you checkout your new branch. We're going to create an new optional way of building this software based on what you've already done.</p>
+<p>Android TVs don't have a touch screen, so you have to add this line to the manifest:</p>
+<p style="padding-left: 30px;"><strong>&lt;uses-feature android:name="android.hardware.touchscreen" android:required="false" /&gt;</strong></p>
+<p>Also, Google has created a library of colours and fonts that look good on large screen displays, so you should require your app to use this as well by putting this line in the manifest:</p>
+<p style="padding-left: 30px;"><strong>&lt;uses-feature android:name="android.software.leanback" android:required="true"/&gt;</strong></p>
+<p></p>
+<p>To tell your AndroidManifest which Activity to launch on a TV device, add this line:</p>
+<div>
+<p style="padding-left: 30px;"><strong>&lt;category android:name="android.intent.category.LEANBACK_LAUNCHER" /&gt;</strong></p>
+<p>It should go right below the other &lt;category&gt; tag in your MainActivity declaration.</p>
+<div></div>
+</div>
+<p>Lastly, your TV app doesn't use Icons, but instead has a larger picture that gets installed on the TV's home screen. In addition to android:icon="@drawable/...", you should add: "<strong>android:banner="@drawable/...</strong> " followed by a larger picture that is 320 x 180 pixels. Use Microsoft Paint or Gimp to create your own PNG file. Make sure that the image doesn't have a transparency channel (uses 24-bit graphics instead of 32-bit).</p>
+<p>Some TVs don't show the whole screen size properly so you should add some margins around the top, bottom, left and right sides. The top and bottom should have a 27 pixel margin, and the left and right sides should have a 48 pixel margin.</p>
+<section class="section is-medium">
+<h2 class="title">Practice - Lab Work</h2>
+</section>
+<h4><span style="color: #009e0f;">Lab exercise step 1:</span></h4>
+<p>Add the two XML tags to your manifest that are mentioned in the Theory part. In the end, your manifest should now look like this:</p>
+<p><img src="images/img_p3_1.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Use Windows Paint to create a banner image for your TV app. Make sure it's 320 x 180 pixels by clicking File menu and selecting "Image Properties": <img src="images/imageTV_banner.png"></p>
+<p><img src="images/img_p3_2.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Now create an Android TV virtual device by clicking on the Tools menu, then "AVD Manager". Click on "Create Virtual Device", and select the 1080p device:</p>
+<p><img src="images/img_p3_3.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>You should use the Android 8.1 image but the TV images are only in x86 32-bit format. Download this image and click Finish. Once your virtual device is created, select your TV from the list of devices and click on debug to make sure that your app runs.</p>
+<p><img src="images/img_p3_4.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<h4><span style="color: #009e0f;">Lab exercise step 2:</span></h4>
+<p>Add a margin around the edge of your layout file. Some TVs don't scale the image properly for some images, so put margins around the edge of the root ConstraintLayout:</p>
+<p><strong>android:layout_marginTop="27dp"</strong><br><strong>android:layout_marginBottom="27dp"</strong><br><strong>android:layout_marginLeft="48dp"</strong><br><strong>android:layout_marginRight="48dp"</strong><br><br>You can delete the 32 pixel margins you had for your buttons to the parent. Your activity_main.xml layout should look like this:<br><img src="images/img_p3_5.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Lastly, since there isn't a touch screen on a TV, you have to navigate your widgets using the direction pad (D-pad) on a TV remote. At first, the top most widget will be selected, but you then have to give the IDs of which Widget will be next if you click the up, down, left or right arrows. Look at the first Button in your layout:</p>
+<p><img src="images/img_p3_6.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Now add these parameters to the button:</p>
+<p style="padding-left: 30px;"><strong>android:nextFocusUp="@id/..."</strong> and put the id of the widget that should be selected if the user clicks on the up direction.<br><strong>android:nextFocusDown="@id/..."</strong> and put the id of the widget that should be selected if the user clicks the down direction.<br><strong>android:nextFocusRight="@id/... "</strong>&nbsp;&nbsp;&nbsp; this is for pressing the right direction<br><strong>android:nextFocusLeft="@id/... "&nbsp;</strong> this is for pressing the left direction</p>
+<p>For each of the buttons, if you select the down arrow, the switch should be selected.</p>
+<p>For each button, if you press on the right arrow, the button to the right should be selected. If it's the last button on the right, then pressing the right arrow should cycle around and make the first button selected. Do the same for the left arrow, where the button to the left is selected, and the first button cycles around to the third button.</p>
+<p>For each button, pressing up shouldn't do anything. You do this by deleting the "nextFocusUp" parameter. On the switch, selecting the left, right, and down arrows shouldn't do anything.</p>
+<p>Now debug your application and make sure that the switch still rotates the flag when you turn it on or off. You can find the d-pad controls by clicking on the " ... " button on the right of the emulator:</p>
+<p><img src="images/img_p3_7.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p></p>
+<p>Then select the "direction pad" on the left. Click on the arrows to test your interface, and the circle in the middle of the arrows is the "select" button.</p>
+<p><img src="images/img_p3_8.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p style="text-align: left;"></p>
+<p style="text-align: left;">You should see this:</p>
+<p style="text-align: center;"></p>
+<p style="text-align: center;"><video title="video of tv emulator" controls="controls" width="800" height="600"> <source src="videos/video_p3_8.mp4" type="video/mp4">
+      </video></p>
+<p style="text-align: center;">Commit your work to your Week3_TV branch and you are finished this lab. Make sure to push BOTH branches to your github account:<strong> Week3</strong> and<strong> Week3_TV</strong></p>
+<p>When you are finished, demonstrate your lab work to your lab professor, showing that you have created two branches and that you can switch from one branch to another and everything works properly.</p>
+<h2><span style="color: #cc0000;">Marks for Lab 3 (10 Total)<br></span></h2>
+<table>
+<tbody>
+<tr>
+<th>Item</th>
+<th>Marks</th>
+</tr>
+<tr>
+<td>You have 3 buttons chained horizontally, 32 pixels from the top of the screen</td>
+<td>(3 marks)</td>
+</tr>
+<tr>
+<td>Your flag ImageView is 32 pixels below the top row of buttons</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>Your flag changes when you change the phone's language.</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>Your switch starts and stops the rotation of the ImageView.</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>Your app has a TV version on a second branch.</td>
+<td>(2 marks)</td>
+</tr>
+<tr>
+<td>You are able to navigate the interface using the D-pad arrows in the TV remote.</td>
+<td>(2 marks)</td>
+</tr>
+</tbody>
+</table></body></html>

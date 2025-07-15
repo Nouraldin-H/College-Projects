@@ -1,0 +1,87 @@
+Lab3
+====
+
+Your Name: Nouraldin Hassan
+
+
+Your partner's name: Christopher St. Aubin
+
+
+Answers:
+
+1.7:
+
+
+Yours:
+
+IPv4 address: 192.168.1.129 (preferred)
+
+Subnet Mask: 255.255.255.0 
+
+MAC address: 7C:10:C9:24:56:0D 
+
+==================================
+
+Your partner's:
+
+IPv4 address: 192.168.1.130 (preferred)
+
+Subnet Mask: 255.255.255.0
+
+MAC address: 00:E0:4C:DE:FB:2D 
+
+==================================
+
+
+1.8:
+
+Default Gateway: 192.168.1.1 
+
+
+
+1.9:
+ping result:
+Pinging 192.168.1.1 with 32 bytes of data:
+Reply from 192.168.1.1: bytes=32 time=28ms TTL=64
+Reply from 192.168.1.1: bytes=32 time=30ms TTL=64
+Reply from 192.168.1.1: bytes=32 time=14ms TTL=64
+Reply from 192.168.1.1: bytes=32 time=4ms TTL=64
+
+Ping statistics for 192.168.1.1:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 4ms, Maximum = 30ms, Average = 19ms
+
+
+5.1 
+
+a. What is the layer 7 protocol? HTTP
+
+b. What is the Layer 4 protocol? TCP
+
+c. What is the Layer 3 protocol? IPv4
+
+d. What is the Layer 2 protocol? Ethernet
+
+e. What is the frame's destination MAC address?  00:E0:4C:DE:FB:2D 
+
+   e.i. This destination's MAC address belongs to which device? Source/Server/Host (RealtekS)
+
+f. What is the destination IP address? 192.168.1.130 
+
+   f.i. This IP address belongs to which device? Server/Host
+
+g. What is the destination port? 8088
+
+   g.i. This destination port belongs to which application? Webserver/Web Browser
+
+
+
+
+
+Task 6: Challenge Question reflection answer:
+
+
+The layer 2 destination MAC address would be the web server's MAC address; in this case, 00:50:03:00:33:00.
+The layer 3 IP Address would be a default value of 172.16.x.x (x may indicate different number), but given the assignment, the web server's IP address; in this case, is 192.168.0.50.
+The layer 4 destination port would be 80 for HTTP, since it is a web server, or whichever port the web server is set to (ex. 8088).

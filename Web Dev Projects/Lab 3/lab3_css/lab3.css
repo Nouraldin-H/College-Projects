@@ -1,0 +1,101 @@
+/* Nouraldin Hassan */
+head, body, main {
+    background-color: #ddd78d;
+    color: #223333;
+    font-family: sans-serif;
+}
+/* HEADERS AND FOOTERS */
+header, footer {
+    background-color: #60594d;
+    color: #93a29b;
+    border: 4px solid #223333;
+    padding: 10px;
+}
+
+footer {
+    text-align: center;
+}
+footer a {
+    text-decoration: none;
+}
+footer a:hover {
+    color: #8B635C;
+    background-color: #2fff6d;
+}
+footer p {
+    text-align: right;
+    font-style: italic;
+    font-size: 10pt;
+    margin-top: 20px;
+}
+/* HEADINGS */
+h4 {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+h1 {
+    font-size: 3vw;
+}
+/* PARAGRAPHS */
+.paragraph1, .paragraph2, .paragraph3, .paragraph4, .paragraph5, .paragraph6, .paragraph7, .paragraph8, .paragraph9, .paragraph10, .paragraph11 .paragraph12 {
+    font-size: 14px;
+    justify-content: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.blockparagraph1 {
+    background-color: #DCBF85;
+    text-align: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin: 10px;
+}
+
+.paragraph12 {
+    margin: 6px;
+}
+/* LISTS */
+ol li {
+    font-weight: bold;
+    padding: 2px;
+}
+/* LINKS/ANCHORS */
+a:visited {
+    color: #47007e;
+}
+
+.mainlinkedheaderclass:hover {
+    background-color: #2fff6d;
+}
+
+a {
+    text-decoration: none;
+    color: #232075;
+}
+
+a:hover {
+    color: #8B635C;
+}
+nav {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    margin: 5px;
+}
+/* FLEX & FLEXBOX */
+.container {
+    display: inline-block;
+    border: 2px solid #131313;
+    background-color: rgb(209, 209, 209);
+    border-radius: 10px;
+    padding: 5px;
+}
+/* IMAGES */
+img {
+    float: right;
+    width: 25%;
+    margin: 10px;
+}

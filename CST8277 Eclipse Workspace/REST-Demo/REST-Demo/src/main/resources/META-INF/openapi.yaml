@@ -1,0 +1,43 @@
+openapi: 3.0.0
+info:
+  description: "This is a REST Demo"
+  version: "1.0.0"
+  title: "REST Demo"
+  contact:
+    name: CST 8277
+    email: normanm@algonquincollege.com
+    url: https://brightspace.algonquincollege.com/d2l/home/227317
+
+servers:
+  - url: 'http://localhost:{port}/{contextRoot}/{basePath}'
+    variables:
+      contextRoot:
+         default: 'REST-Demo'
+      basePath:
+        default: 'api/v1'
+      port:
+        default: '8080'
+  
+paths:
+  /hello:
+    get:
+      responses:
+        200:      
+          description: OK
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              properties:
+                msg:
+                  type: string
+                # not necessary for post
+                #date:
+                #  type: string
+                #
+      responses:
+        200:      
+          description: OK

@@ -1,0 +1,32 @@
+Documentation notes, mostly "how" code works, ommited from the code itself and placed here for reference.
+
+--------------------------------
+------- TestPerson.java --------
+--------------------------------
+ /** What should happen is that
+ * the expected full name matches the actual full name.
+ * <bl> the expected full name is initialized with two strings concatenated.
+ * the actual full name is composed of the setters/mutators that initialize
+ * first and last name.
+ * <bl> What should happen is that the test returns a green bar, indicating
+ * a successful test. A red bar indicates failure, and an error trace is generated.
+ */
+ public class TestPerson
+--------------------------------
+
+--------------------------------
+---- YourPurchasesTest.java ----
+--------------------------------
+/** You would use the money and have it counted at the register, and excess cash is returned to you if needed.
+*/
+public class YourPurchasesTest
+--------------------------------
+   /**
+	 * Purchases are recorded twice, with values 0.75 and 1.50, adding up to 2.25.
+	 * Payment is recorded as 2 dollars and 5 dimes, making 2.50.
+	 * The variable `expected` is set to 0.25, which is lower than 2.25 and 2.50.
+	 * `giveChange()` is used as part of `assertEquals()`, alongside EPSILON. <p>
+	 * With that, 2.50 - 2.25 (from `giveChange()` is equal to 0.25.
+	 */
+      public void twoPurchases()
+--------------------------------

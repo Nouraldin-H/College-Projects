@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html><head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="../../css/main.css" type="text/css">
+  <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+  <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+</head><body><p>Android Studio uses the Espresso test library to record what you do on the interface and can then play it over and over to test that the results are still the same. Use your Week5 branch to test that your password complexity app works in various different scenarios. In Android Studio, click on the "Run" menu and select "Record Espresso Test":</p>
+<p><img src="images/PastedImage_pmwlhyyehgxrl3dfih4w5wglxsk3scep00151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>This should launch your app, and there will also be an Espresso window recording what you have done on the app so that it can replay those steps. Click on the EditText and type a simple password: "12345". The espresso recorder will show that you typed "12345" into the EditText:</p>
+<p><img src="images/PastedImage_l2mj125w3hwdf9lmef3vkoveqov3c9k000151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Then click on the "Login" button. You should get a Toast showing up which requirement was not met, and the TextView should show "You shall not pass!".</p>
+<p><img src="images/PastedImage_tg13ida0y9ygtvuyxbmo1i6bjhkl4shz00151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Result:</p>
+<p><img src="images/PastedImage_ukd7t3bszqwloxbtxh144boxmdfwej4000151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p></p>
+<p>To save this as a test case that you can continue to test automatically, click on the "Add assertion". You want Android Studio to verify that your app shows "You shall not pass!" every time you type in "12345" in the EditText and click on the Login button.</p>
+<p><img src="images/PastedImage_oaaabj9fhd5k4m70roittsixe4iw6o4600151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p></p>
+<p>Click on the TextView in the window:</p>
+<p><img src="images/PastedImage_2486vx35muv98mlikb7kt2f9fj0exas900151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>You are recording that the getText() from this TextView should be "You shall not pass!" after clicking the "Login" button:</p>
+<p><img src="images/PastedImage_1ko5n7hsgf3se9rz3a31enz3z7s9hkbh00151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Click on Save Assertion. This will generate a JUnit Test class:</p>
+<p><img src="images/PastedImage_igumw6zjo3l5159shech2x5z0srxucq400151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Click Ok. If you get a window about<strong> Missing or obsolete Espresso dependencies</strong>, click on "Yes". Then click "Add" to add the new Java class to git tracking.</p>
+<p>You should see that this generates a function called mainActivityTest(). Running this function will test that your application shows "You shall not pass!" on the TextView when you enter "12345" in the EditText, and then&nbsp; click on the Login button. The highlighted code (lines 40 - 47) is trying to find the editText on the screen. It is similar to findViewById, but now it has added some descriptors: withId(R.id.editText) is the same as findViewById(R.id.editText);</p>
+<p>childAtPosition( ) is saying that the element must also be at position 0, 2 on the screen.</p>
+<p>the isDisplayed() means that the same widget must also be showing on the screen.</p>
+<p>You really only need the withId() function since that's all you need to find the EditText. Change the highlighted code so that it's like this:</p>
+<p><img src="images/PastedImage_82lycwacxfa6qcuyja42s36gxdg66tjm00151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Now it's only using the withId( ) function to load the EditText as a "ViewInteraction" object. The next line of code <em><strong>appCompatEditText.perform( replaceText( "12345"), closeSoftKeyboard() );</strong> </em></p>
+<p>is what tells the testing library to type "12345" into the editText. You can change the string to something else and it will type that new text instead of 12345. The function <em><strong>closeSoftKeyboard()</strong> </em>makes the keyboard go away from the screen. You don't really need this part of code but it makes the result easier to see after the test is run.</p>
+<p>The next portion of code:</p>
+<p><br><img src="images/PastedImage_md5qmrgglhy9qn52eoiofh8fen40na4700151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"><br>first finds the Login button: allOf(withId(R.id.button), withText("Login"), childAtPosition(), isDisplayed()))); <br>You don't need all of these parameters to describe the button. The withId() is good enough. It will already have "Login" displayed, so you don't really need to add the withText("Login") part. Change the code so it just uses the withId( ) function:</p>
+<p><img src="images/PastedImage_vr4mtpq1isjh83wfz7ky3kuh1czmrf6700151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>The next line tells the test software to click on the button. So so far, the test software will find the EditText, type "12345" in it. Then it finds the Login button, and clicks it. The last part of code finds the TextView and makes sure that it shows "You shall not pass!".</p>
+<p></p>
+<p>Modify the last part of code to remove the descriptors about withText(), isDisplayed(), withParent(). You really only need the withId() function to find the TextView:</p>
+<p><img src="images/PastedImage_3flz8dvfnf24st877mvwg93q6n7v5dp300151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>The second line checks that the text matches "You shall not pass!". If the text matches, then the test case passes. If the test case fails then it records the fail and shows you the results when the test cases have finished running. Your test case should now look like this:</p>
+<pre><img src="images/PastedImage_jl4eoaqol3nu3grbj350y2mud845mb3d00151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></pre>
+<p>What the code is basically saying is:</p>
+<ol>
+<li>find the view with id R.id.editText;</li>
+<li>perform typing "12345" into that view, then close the keyboard.</li>
+<li>find the button with id R.id.button.</li>
+<li>perform clicking that button</li>
+<li>find the view with id R.id.textView</li>
+<li>check that its text matches "You shall not pass!"</li>
+</ol>
+<p>Switch to your project's Android view:</p>
+<p><img src="images/PastedImage_zoo61pd54md0m4q6eat04317b53xpl7800151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Notice that there's an androidTest package there as well. This holds your test cases. Right-click on this folder and select "Run tests in ...":</p>
+<p><img src="images/PastedImage_ezz0l4avqzpsi8baij1m7x6w6f0wrxea00151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>You should see at the bottom that all the tests passed:</p>
+<p><img src="images/PastedImage_znvz4rfv5888zsh65womw8sogxg3126g00151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Normally in software development, at the end of the day when everyone has finished working and has gone home, the build manager will pull the latest code and then run the test cases overnight. For a large project, it might take several hours for all the tests to run, but the next morning when you arrive to work, the results should be finished and you can see if anything done the previous day has broken the normal behaviour of your application. You can then check who checked in that code and get them to fix the problem. This is done every day during software development to help fix problems immediately and cut down on the number of bugs in your code.</p>
+<h2></h2>
+<h2>Make your own test cases</h2>
+<p>In the file, create a new function for testing a password that password that is only missing an upper case letter:</p>
+<p><img src="images/PastedImage_oz76jzmlcr0bqnsov8aki306jctqd61q00151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"><br><br>The @Test annotation tells JUnit that this is a function that should be called as part of running all of the tests. Write this function so that it:</p>
+<ol>
+<li>finds the EditText</li>
+<li>perform: type in "password123#$*"</li>
+<li>find the button</li>
+<li>perform: click the button</li>
+<li>find the TextView</li>
+<li>check that the text matches "You shall not pass!</li>
+</ol>
+<p>You code should look like this:</p>
+<p><img src="images/PastedImage_fuq260vccwy0ujosnqmlhwcxsss1ovr000151481176.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Basically just copy and paste the code, but change the password that is typed in. Also get rid of the closeSoftKeyboard() just to see what happens if you don't close the keyboard. Notice there's a play button in the margin next to the function declaration. Click that button to run the test.</p>
+<p>You should see that the test passes:</p>
+<p><img src="images/PastedImage_yo9lc211s8qttjfj1oiqhspk72uzpyud00151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>You should also add JavaDoc comments above these @Test functions just to describe what you are testing. In your application, your password should have a digit, an upper case, a lower case, and a special character. <em><strong>Write a test case for each of these requirements</strong> </em>making sure that it can detect when a password is missing each of these requirements. <strong>You should then add a test case for a password that has all of these requirements</strong> and the text view should then say "Your password is complex enough".</p>
+<p>Finally, run all the test cases and you should see that all the tests pass. You should have 5 test cases in total, although the picture only shows two tests:</p>
+<p><img src="images/PastedImage_mjq7n9yxe5e2ipgtlyyglmj33444n5hm00151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p></p>
+<p>Commit your code with the message "Finished test cases and Javadocs". Now think about what you've done this week. Your first commit created the GUI and added JavaDocs to your MainActivity.java and activity_main.xml file. The second commit created the JUnit test cases. It's like an IKEA instruction book where you did the first picture of adding something, and then you did the second picture where you added something.</p>
+<p><img src="images/PastedImage_2q5l9eiy0dncqzz1d7ypi4gzgg3cbck200151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>You should be able to condense this into one step, having a commit that says add the code to MainActivity.java, activity_main.xml and add code to MainActivitTest.java all as one step. This is called "Squashing" commits down to one commit. This is good because it summarizes everything into one commit so you get a picture of everything that is happening in your branch.</p>
+<p>On the Git tab at the bottom, select the "Log" view:</p>
+<p><img src="images/PastedImage_wxd3zsne64w9wohpiigiqnclb2tmuryi00151585603.png" style="max-width: 100%;" data-d2l-editor-default-img-style="true"></p>
+<p>You should see your commits that you've worked on this week. Hold the Shift key down and select the commits that you want to squash into 1 commit:</p>
+<p><img src="images/PastedImage_t977me7zqttji0hkww7p4of09ap8zd7k00151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Right-click on the commits, and select "Squash commits":</p>
+<p><img src="images/PastedImage_lmtbw8xjb37gnrrzkr1uamj4xss5pb0d00151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>The next window is where you rewrite the commit message for the commits you are squashing. If you are condensing multiple commits into 1 commit, you have to write a new commit message that describes what you are doing in all these commits:</p>
+<p><img src="images/PastedImage_cd876lnm2owafpqtw63h2kagtnj519u100151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>When you finish your commit message and click "Ok", you should see that there is now only 1 commit, and a message says "Commits squashed".</p>
+<p><img src="images/PastedImage_56f2v4neoxp0i46loe9x3qhzj05rxfqm00151585603.png" style="max-width: 100%;" data-d2l-editor-default-img-style="true"></p>
+<p>Now push your Week6 branch to github. Log on to your github account and find your repository:</p>
+<p><img src="images/PastedImage_zt2ae297rmj3aaf73vyg91bphv41e77900151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Click on "Pull Requests" on the tab above:</p>
+<p><img src="images/PastedImage_667q4wztwwk5x1py5vuz7lgvcydzyx0j00151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Click on "New pull request":</p>
+<p><img src="images/PastedImage_d7qgmq3krqxssxjmg355e533xi2y95ht00151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>On the next window, select "Week 5" to compare with the master branch:</p>
+<p><img src="images/PastedImage_14sfbddys6rxhudwkrxfzim43vjdo6xr00151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Make sure that the arrow shows you are taking commits from "Week6" to merge them with&nbsp; "master". It should say that you are "Able to merge". This means that there are no conflicting instructions in the commits. We'll cover how to deal with conflicts later in this course.</p>
+<p>Then click on "Create pull request":</p>
+<p><img src="images/PastedImage_vbugmskk6nt9eb6ip2p1dg4kc4ktrm5000151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>From now on, just look for the green button and click on it. Click on the next "Create pull request", then"Merge pull request", then "Confirm merge":</p>
+<p><img src="images/PastedImage_3mgzaizn9yngpswkzorp3qcurckv57e400151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Your week 5 branch should now be merged onto the master branch. Look at your master branch on the code tab on github:</p>
+<p><img src="images/PastedImage_r8yuhlw91caj7r1j7qhknlfaerj31y5200151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p></p>
+<p>Look for your test case class: MainActivityTest. You should see your test cases are now on the master branch, but they are not on your computer.</p>
+<p><img src="images/PastedImage_wdexmuzcmazfasmneu9roqpipic251g400151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>To download the commits to your master branch, make sure that you are on your master branch. Make sure that you run: "git checkout master". Then click "VCS" -&gt; "Git" -&gt; "Pull":</p>
+<p><img src="images/PastedImage_ghu0jqeatxxlwwoeld7cr4713a2eanz500151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Make sure that you are pulling the master branch from github:</p>
+<p><img src="images/PastedImage_a0ajlrnn8i5a0pqm3tnt7whdbs401a6m00151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>You should now see your changes on your master branch:</p>
+<p></p>
+<p><img src="images/PastedImage_msdnw92479yha79y96tpejqp33wqfvgz00151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Also, if you look at the the git history of MainActivity.java, you should see all your changes are now included in the one squashed commit:</p>
+<p><img src="images/PastedImage_7vf25zoktuj8vsuhm4kzyh14wb8wi5xs00151585603.png" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" data-d2l-editor-default-img-style="true"></p>
+<p>Once you have a squashed commit on your master branch, you have finished this week's lab. If you look at your github repository, you should have 1 closed pull request:</p>
+<p><img src="images/PastedImage_p0v3ka0x4qu3kyv520ok8cy1sr88bqat00151585603.png" style="max-width: 100%;" data-d2l-editor-default-img-style="true"></p>
+<p>If you click on the "1 closed" link, it summarizes your merge on github:</p>
+<p><img src="images/PastedImage_a2gzpetgba3srummvjllntrx1mufunaa00151585603.png" style="max-width: 100%;" data-d2l-editor-default-img-style="true"></p>
+<p>For this week's submission on Brightspace, take a screenshot like what is above showing a summary of your closed pull request and submit that picture.</p>
+<h2><span style="color: #cc0000;">Marks for Lab 5 (9 Total)<br></span></h2>
+<table style="width: 90%;">
+<tbody>
+<tr>
+<th>Item</th>
+<th>Marks</th>
+</tr>
+<tr>
+<td>You have 5 test case functions that check each of (missing 1 upper case, missing 1 lower case, missing 1 numeric, missing 1 special character, has all requrements)</td>
+<td>(5 marks)</td>
+</tr>
+<tr>
+<td>Running your test cases all pass as described.</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>Your class variables and functions are properly commented.</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>You have squashed your commits into 1 commit.</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>You merged your code on Github using a pull request.</td>
+<td>(1 mark)</td>
+</tr>
+</tbody>
+</table></body></html>

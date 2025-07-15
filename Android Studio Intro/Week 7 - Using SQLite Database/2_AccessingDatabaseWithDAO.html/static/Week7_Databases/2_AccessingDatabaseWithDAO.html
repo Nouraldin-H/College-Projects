@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="../../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+    <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+    <title>ROOM Database</title>
+  </head><body><h1>Creating a Data Access Object (DAO)</h1>
+<p>Typically we use a DAO to take care of inserting, updating, creating and deleting. We will then need a Data Access Object, which is responsible for running the sql commands. So far, we will only want to</p>
+<ol>
+<li>insert a ChatMessage</li>
+<li>get all of the stored messages</li>
+<li>delete a message</li>
+</ol>
+<p></p>
+<p><br>So create a Java <strong>Interface</strong> (not a class) called ChatMessageDAO.java and we will implement the necessary functions. First, write the function</p>
+<div class="code"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public long insertMessage(ChatMessage m);</strong></div>
+<p></p>
+<p>This function will insert a ChatMessage object and then return the newly created ID as a long. Then just add the</p>
+<div class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> @Insert</strong></div>
+<p></p>
+<p>annotation above the function and the Room library will take care of the SQL syntax for inserting a ChatMessage into the database.</p>
+<hr>
+<h2>Searching in the database</h2>
+<p>For getting all the messages, Room can run an SQL query and return a List&lt;?&gt; object and all you have to do is specify the Generics parameter, which in our case is ChatMessage. So add this function to your interface:</p>
+<div class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>public List&lt;ChatMessage&gt; getAllMessages();</strong></div>
+<p></p>
+<p>Instead of writing the java code, you just have to specify the SQL query in an <strong>@Query("")</strong> annotation. Room uses the object's class name as the table name, so here we write <strong>"Select * from ChatMessage"</strong></p>
+<p>The deletion function is the easiest one to implement. Declare the function</p>
+<div class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>void deleteMessage(ChatMessage m)</strong></div>
+<p></p>
+<p>and just add the <strong>@Delete</strong> annotation. Room will fill in the code for deletion in SQL. It is very important that you create the <b>@PrimaryKey int id;</b> variable since Room will use this for matching rows to delete. Lastly, put the annotation <b>@Dao</b> above the interface to specify that this is the Data Access Object for Room. Once you are finished, your code should look like this, but with the @Dao annotation above:</p>
+<p><img src="images/MessageDao.png" alt="" width="460" height="310"></p>
+<p>The last step is to create the database itself on the disk of the phone or tablet. Create an Abstract class in Java called <b>MessageDatabase.java</b>. Make sure you declare that this class is abstract, and it should extend <b>RoomDatabase</b> to inherit the necessary functions. This class should just have one abstract function which returns the DAO for interacting with this database. For us, that's ChatMessageDAO. So write this abstract function: <strong>public abstract ChatMessageDao cmDAO();</strong>.</p>
+<p>Then above the class declaration, use the annotation <strong>@Database(entities = {ChatMessage.class}, version = 1)</strong></p>
+<pre>    @Database(entities = {ChatMessage.class}, version=1)
+    public abstract class MessageDatabase  extends RoomDatabase {
+      public abstract ChatMessageDAO cmDAO();
+    }
+  </pre>
+<p>This tells Room that this Database class is meant for storing ChatMessage objects, and uses the ChatMessageDAO class for querying data. The version parameter is used in case you ever need to change the structure of the ChatMessage class. Let's say you add or remove a variable, then you will need to add or remove a column in the database table. To make the database rebuild itself, just increment the version number by one.</p>
+<p>Now in your ChatRoom class, use this code in onCreate() to open a database:</p>
+<pre class="line-numbers">    	MessageDatabase db = Room.databaseBuilder(getApplicationContext(), MessageDatabase.class, "database-name").build();
+        mDAO = db.cmDAO();</pre>
+<p>You are not allowed to run a database query on the main GUI thread, since it might take some time to execute the query and the GUI might not respond to user touches. This means that you should run the query in a separate thread like this:</p>
+<pre>    Executor thread = Executors.newSingleThreadExecutor();
+    thread.execute({  /*this runs in another thread*/   });
+  </pre>
+<p></p>
+<p>The execute() function calls the <b>run()</b> function of a Runnable on another thread. This is where you should run your database query and add all of the objects returned to your messages ArrayList:</p>
+<pre>    Executor thread = Executors.newSingleThreadExecutor();
+    thread.execute({  /*this runs in another thread*/   });
+  </pre>
+<p>You can the add all the messages from the database to your ArrayList of chat messages in the onCreate() function. However you should only set the adapter for recyclerView inside the execute() function, so that the RecyclerView show the data after the database has loaded it:</p>
+<pre> if(messages == null)
+    {
+        chatModel.messages.setValue(messages = new ArrayList&lt;&gt;());
+
+        Executor thread = Executors.newSingleThreadExecutor();
+        thread.execute(() -&gt;
+        {
+            messages.addAll( mDAO.getAllMessages() ); //Once you get the data from database<br><br>           runOnUiThread( () -&gt;  binding.recycleView.setAdapter( myAdapter )); //You can then load the RecyclerView
+        });
+    }</pre>
+<p></p>
+<p><br>The ChatMessageDAO object will let you:</p>
+<ol>
+<li>Insert a ChatMessage</li>
+<li>Delete a ChatMessage</li>
+<li>Get all elements in the database</li>
+</ol>
+<p></p>
+<p>You could even write your own @Query function that returns only elements from the database that match a specific query string. Your function could even take parameters and use them in the @Query string. <br>For your lab, modify the Send and Receive click handlers so that you insert the new ChatMessage object into the database in addition to adding it to your messages ArrayList.</p>
+<p></p></body></html>

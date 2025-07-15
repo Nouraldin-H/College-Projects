@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TestProject1</name>
+    </assembly>
+    <members>
+        <member name="T:TestProject1.Program">
+            <summary>
+            The main program class.
+            </summary>
+        </member>
+        <member name="M:TestProject1.Program.Main(System.String[])">
+            <summary>
+            The main entry point of the program.
+            </summary>
+            <param name="args">The command-line arguments.</param>
+        </member>
+        <member name="M:TestProject1.Program.ReadCsv(System.String)">
+            <summary>
+            Reads the CSV file and returns a list of records.
+            </summary>
+            <param name="filePath">The path to the CSV file.</param>
+            <returns>A list of records.</returns>
+        </member>
+        <member name="M:TestProject1.Program.DisplayRecords(System.Collections.Generic.List{TestProject1.Record})">
+            <summary>
+            Displays the records on the console.
+            </summary>
+            <param name="records">The list of records.</param>
+        </member>
+        <member name="T:TestProject1.Record">
+            <summary>
+            Represents a record in the dataset.
+            </summary>
+        </member>
+        <member name="M:TestProject1.Record.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TestProject1.Record"/> class.
+            </summary>
+        </member>
+    </members>
+</doc>

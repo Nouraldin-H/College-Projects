@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nouraldin Hassan, David Omidiora, Roberto Agu">
+    <meta name="description" content="Watch list of Watch Shopping Site with login system. Assignment 2 website">
+    <meta name="keywords" content="watches, store, shop, search bar, navigation, listing, watch store">
+    <meta name="date" content="2023-07-23">
+    <meta name="section" content="CST8285 300/302">
+    <meta name="file" content="index.html">
+    <meta name="lab objective" content="Make a site with a login system and utilize PHP/SQL. Creativity is needed.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Watches Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Luxury Watch Store</h1>
+    </header>
+    <p><h2>Find your Luxury Watch</h2></p>
+    <!-- below is the search container for searching watches -->
+    <div class="search-container">
+        <!-- type to search -->
+        <input type="text" id="watch-search" oninput="searchWatches()" placeholder="Search for watches...">
+        <!-- below, choose a brand to filter through -->
+        <select id="brand-filter" onchange="filterWatchesByBrand()">
+            <option value="">All Brands</option>
+            <option value="timex">Timex</option>
+            <option value="rolex">Rolex</option>
+            <option value="burberry">Burberry</option>
+        </select>
+        <!-- below, choose a price to sort by -->
+        <select id="price-filter" onchange="sortWatches()">
+            <option value="">All Prices</option>
+            <option value="lowToHigh">Price: Low to High</option>
+            <option value="highToLow">Price: High to Low</option>
+        </select>
+    </div>
+    <!-- below is the watches cards. divs are used because ul/li shows dots on sorting, and divs don't show dots -->
+    <div class="watch-cards-container" id="watch-list">
+        <!-- Display luxury watches here as list items (via div) with necessary information -->
+        <div class="watchlist-card">
+            <img width="80%" src="Images/timex-waterbury-1.png" alt="Classic Timepiece (source: https://timex.ca/products/waterbury-classic-40mm-leather-strap-watch-tw2v73600)">
+            <h3>Classic Timepiece</h3>
+            <p>Brand: Timex</p>
+            <p>Type: Simple</p>
+            <p>Price: $99.99</p>
+        </div>
+        <!-- below is the second card -->
+        <div class="watchlist-card">
+            <img width="70%" src="Images/rolex-gmt-master-ii.png" alt="Elegant Luxury Watch (source: https://www.rolex.com/en-us/watches/gmt-master-ii/m126713grnr-0001)">
+            <h3>Elegant Luxury Watch</h3>
+            <p>Brand: Rolex</p>
+            <p>Type: Simple</p>
+            <p>Price: $4999.99</p>
+        </div>
+        <!-- below is third card -->
+        <div class="watchlist-card">
+            <h3>Stylish Chronograph</h3>
+            <p>Brand: Burberry</p>
+            <p>Type: Simple</p>
+            <p>Price: $799.99</p>
+        </div>
+        <!-- fourth card below -->
+        <div class="watchlist-card">
+            <h3>Sporty Diver's Watch</h3>
+            <p>Brand: Timex</p>
+            <p>Type: Multifunctional</p>
+            <p>Price: $149.99</p>
+        </div>
+        <!-- fifth card below -->
+        <div class="watchlist-card">
+            <h3>Luxury Diamond Watch</h3>
+            <p>Brand: Rolex</p>
+            <p>Type: Simple</p>
+            <p>Price: $9999.99</p>
+        </div>
+        <!-- add more cards here if needed -->
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Luxury Watch Store. All rights reserved.</p>
+    </footer>
+    <!-- below is the script declaration. It must be there for loading and compatibility purposes -->
+    <script src="script.js"></script>
+</body>
+</html>

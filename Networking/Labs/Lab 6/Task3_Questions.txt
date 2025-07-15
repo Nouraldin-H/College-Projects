@@ -1,0 +1,36 @@
+TASK 3:
+
+3.
+	a. 128 TTL from Inbound PDU, 127 from Outbound PDU.
+	b. Type 0x08 & Code 0x00.
+
+5. 
+	a. 127 TTL from Inbound PDU, 126 from Outbound PDU.
+	b. Type 0x00 & Code 0x00.
+
+6. The TTL decreases from the router when it is forwarded, and the destination and source address are changed for reaching the next router or connection device in the packet direction line.
+7. The type and code are both at 0x00 on step 7, rather than just the code being at 0x00 on step 4. That is the only noticable change in the ICMP section.
+
+TASK 4:
+
+5. 
+	a. 192.168.91.254.
+	b. 192.168.91.2.
+	c. Type 0x0b & Code 0x00.
+	d. The IP followed by the ICMP comes next. It has the original dataset and information that follows the intended location with the given TTL and Type & Code.
+
+8. 
+	a. The final device was Router0. It will travel to Router1.
+	b. Source is 192.168.91.0 and Destination is 192.168.219.2 from Router0 to Router1, and Source is 10.10.224.6 and Destination is 192.168.91.0 from nothing to Router1.
+
+11. It traveled from Router0 to PC, so only one device.
+12. Type 0x03 & Code 0x01.
+13. The packet serves to send a message back to the source that the packet delivery failed. 
+
+15.
+	a. UDP is moving towards the server.
+
+16. 
+	a. It is an ICMP type.
+	b. Type 0x03 & Code 0x03.
+	c. The Type of 0x03 means "Destination Unreachable" and Code of 0x03 means "Port Unreachable".

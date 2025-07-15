@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="author" content="Nouraldin Hassan">
+    <meta name="description" content="assignment 1 website">
+    <meta name="keywords" content="personal, portfolio, css, javascript, resume, courses, course list">
+    <meta name="date" content=date>
+    <meta name="section" content="CST8285 300/302">
+    <meta name="file" content="courses.html">
+    <meta name="lab objective" content="make a personal portfolio.">
+  <title>Nouraldin Hassan - Courses</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script> <!-- type="text/javascript" is not required-->
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="courses.html">Courses</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="courses">
+        <!-- Functions -->
+      <h1>Courses</h1>
+      <div id="search-bar">
+        <input type="text" id="course-search" placeholder="Search for a course...">
+        <button id="search-btn" onclick="searchCourses()">Search</button>
+      </div>
+      
+      <div id="filter-area">
+        <label for="level-filter">Filter by Level:</label>
+        <select id="level-filter" onchange="filterCourses()">
+          <option value="">All</option>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </div>
+      <br>
+      <div id="sort-area">
+        <label for="sort-order">Sort by Level:</label>
+        <select id="sort-order" onchange="sortCourses()">
+          <option value="asc">Lowest to Highest</option>
+          <option value="desc">Highest to Lowest</option>
+        </select>
+      </div>
+        <!-- List -->
+      <div id="full-course-list">
+      <ul id="course-list"> <!-- image number naming. 1 for computer programming, 2 for database, 3 for communications, 4 for math, 5 for operating systems, 6 for others-->
+        <!-- Level 1 -->
+        <li>
+          <img src="Lab-Collection/course-cover-1.jpg" alt="Course Cover">
+          <h3>Introduction to Computer Programming</h3>
+          <p>Level: Beginner</p>
+          <p>Course Code: CST8116</p>
+          <p>Possessing the fundamentals of logic, problem-solving and programming language structure provides a solid foundation for further study in the field. Students develop introductory knowledge of computer programming with emphasis on problem analysis and design, using algorithms, pseudocode, flowcharts, UML Class Diagrams and testing, with the Java programming language used as a means to implement problem solution designs. Through an introduction to the Java programming language students use sequential structures, selection structures, repetition structures, variables, constants, methods, constructors, one-dimensional arrays, object-oriented programming, classes, objects, abstraction, encapsulation, inputs, outputs, coding conventions and documentation. Theory is reinforced with application by means of practical laboratory assessments.</p>
+        </li>
+        <li>
+          <img src="Lab-Collection/course-cover-1.jpg" alt="Course Cover">
+          <h3>Computer Essentials</h3>
+          <p>Level: Beginner</p>
+          <p>Course Code: CST8118</p>
+          <p>Maintaining a computer, using operating system and productivity software, and expressing related environmental and sustainability concerns, is an important part of working with Information Technology. Students explain computer hardware, and use operating system software to maintain, utilize, and secure a computer. Students practice the use of spreadsheet software to solve problems, use formulas, and visualize data with charts. Students discuss computer hardware and software with regards to financial and environmental sustainability. Theory is reinforced with application by means of practical laboratory assessments, including using virtualization software to install guest operating systems onto a host computer.</p>
+        </li>
+        <li>
+          <img src="Lab-Collection/course-cover-2.jpg" alt="Course Cover">
+          <h3>Introduction to Database</h3>
+          <p>Level: Beginner</p>
+          <p>Course Code: CST8215</p>
+          <p>Databases are used to store data and are a core component of many information technology systems. Students learn the fundamentals of relational databases design using Entity Relation Diagrams (ERDs), and use Structured Query Language (SQL) to create, modify and query a database. Students design and create databases that are maintainable, secure and adaptable to change in business requirements, using normalization. Students become familiar with the functions of a Database Management System (DBMS) and its components in comparison with legacy systems and alternative information storage mechanisms.</p>
+        </li>
+        <li>
+          <img src="Lab-Collection/course-cover-3.jpg" alt="Course Cover">
+          <h3>Achieving Success in Changing Environments</h3>
+          <p>Level: Beginner</p>
+          <p>Course Code: CST8300</p>
+          <p>Rapid changes in technology have created personal and employment choices that challenge each of us to find our place as contributing citizens in the emerging society. Life in the 21st century presents significant opportunities, but it also creates potential hazards and ethical problems that demand responsible solutions. Students explore the possibilities ahead, assess their own aptitudes and strengths, and apply critical thinking and decision-making tools to help resolve some of the important issues in our complex society with its competing interests.</p>
+        </li>
+        <li>
+          <img src="Lab-Collection/course-cover-3.jpg" alt="Course Cover">
+          <h3>Communications 1</h3>
+          <p>Level: Beginner</p>
+          <p>Course Code: ENL1813T</p>
+          <p>Communication remains an essential skill sought by employers, regardless of discipline or field of study. Using a practical, vocation-oriented approach, students focus on meeting the requirements of effective communication. Through a combination of lectures, exercises, and independent learning, students practise writing, speaking, reading, listening, locating and documenting information and using technology to communicate professionally. Students develop and strengthen communication skills that contribute to success in both educational and workplace environments.</p>
+        </li>
+        <li>
+          <img src="Lab-Collection/course-cover-4.jpg" alt="Course Cover">
+          <h3>Technical Mathematics for Computer Science</h3>
+          <p>Level: Beginner</p>
+          <p>Course Code: MAT8001C</p>
+          <p>The study of algebraic and transcendental functions is an essential prerequisite to Calculus. Students manipulate algebraic expressions, solve algebraic equations and linear systems and learn the properties of and graph algebraic and transcendental functions. Students investigate computer number systems in addition to Boolean algebra and logic to help solve problems involving computer systems. Students also study the addition and subtraction of vectors using vector components. Delivered in a modular format, this course is equivalent to the completion of all of the following math modules MAT8100 - A, B, C, D, E, F, and L.</p>
+        </li>
+        <!-- Level 2 -->
+        <li>
+          <img src="Lab-Collection/course-cover-2.jpg" alt="Course Cover">
+          <h3>Database Systems</h3>
+          <p>Level: Intermediate</p>
+          <p>Course Code: CST2355</p>
+          <p>Database systems can automate data processing tasks as well as tie into the security of information technology systems. Students acquire practical experience using market-leading object-relational database management systems like Oracle and MySQL. Students obtain hands-on experience with advanced engineering modeling tools along with SQL, SQL scripts and programming with Oracle's PL/SQL blocks. Database concepts covered include advanced SQL, case structures, rollup and cube operations, metadata manipulation, data storage and retrieval, security and transaction control and data warehousing</p>
+          <p>Prerequisites: CST8215</p>
+        </li>
+        <li>
+          <img src="Lab-Collection/course-cover-5.png" alt="Course Cover">
+          <h3>Operating System Fundamentals (GNU/Linux)</h3>
+          <p>Level: Beginner</p>
+          <p>Course Code: CST8102</p>
+          <p>Operating systems form the backbone of information technology systems coordinating the interaction between hardware and software. Students explore the basic concepts and components of Operating Systems (OS), and how they function and interact with hardware and software components. Students examine the details of operating system structures, process management, storage management, installation, configuration, and administration both in theory and through practical assignments based on the GNU/Linux operating system. Lab work is designed to implement the theory by developing skills using the powerful GNU/Linux command-line tools and utilities.</p>
+          <p>Prerequisites: CST8116 and CST8118</p>
+        </li>
+        <li>
+          <img src="Lab-Collection/course-cover-1.jpg" alt="Course Cover">
+          <h3>Object Oriented Programming (Java)</h3>
+          <p>Level: Intermediate</p>
+          <p>Course Code: CST8284</p>
+          <p>Working in the field of information technology as a programmer requires a firm understanding of Object-Oriented Programming (OOP) concepts. Students explore object-oriented programming methodology using the Java programming language. Object oriented concepts, such as encapsulation, inheritance, abstraction and polymorphism are covered and reinforced with practical applications. Students explore the basics of data structures and algorithms as well as basic Graphical User Interface (GUI) programming.</p>
+          <p>Prerequisites: CST8116</p>
+        </li>
+        <li>
+          <img src="Lab-Collection/course-cover-1.jpg" alt="Course Cover">
+          <h3>Web Programming</h3>
+          <p>Level: Intermediate</p>
+          <p>Course Code: CST8285</p>
+          <p>The World Wide Web (WWW) has become an integrated part of everyday life. Students develop basic skills of web programming, website design and implementation. JavaScript, HTML5, and PHP are used to explore web-based solutions to problems of increasing interactivity and complexity. Lectures are reinforced by practical assignments that encourage students to construct and maintain their own websites.</p>
+          <p>Prerequisites: CST8116</p>
+        </li>
+        <li>
+          <img src="Lab-Collection/course-cover-3.jpg" alt="Course Cover">
+          <h3>Technical Communication for Engineering Technologies</h3>
+          <p>Level: Intermediate</p>
+          <p>Course Code: ENL2019T</p>
+          <p>The ability to communicate effectively in a technically-oriented interdisciplinary workplace is a foundational skill in an innovation-driven economy. Students are exposed to exercises and assignments designed to foster independent and collaborative critical thinking, research, writing, visual communication and presentation skills related to technical topics.</p>
+          <p>Prerequisites: ENL1813T</p>
+        </li>
+        <li>
+          <img src="Lab-Collection/course-cover-6.jpg" alt="Course Cover">
+          <h3>Cooperative Education and Job Readiness</h3>
+          <p>Level: Intermediate</p>
+          <p>Course Code: GEP1001</p>
+          <p>Students are guided through a series of activities that prepare them to conduct a professional job search and succeed in the workplace. Through a detailed orientation students learn the cooperative education program policies and procedures related to searching and securing a work term opportunity. Students identify their strengths and transferable skills and participate in workshop-style sessions that focus on cover letter and resume development, interview techniques and job search strategies. Students learn how to navigate a web-based resource centre, which is used to post employment and cooperative education job opportunities. Students reflect on workplace success, ethics and responsibilities.</p>
+          <p>Prerequisites: ENL1813T</p>
+        </li>
+        <li>
+          <img src="Lab-Collection/course-cover-6.jpg" alt="Course Cover">
+          <h3>Science Fiction</h3>
+          <p>Level: Intermediate</p>
+          <p>Course Code: GEN1957</p>
+          <p>Science fiction is both a genre of popular entertainment and a mode of social commentary. Students explore the formal conventions and the history of the genre, consume and analyze a representative range of science fiction, and strive to heighten their critical appreciation of the role and place of science fiction in society. Students also have an opportunity to create their own piece of science fiction.</p>
+        </li>
+        <!-- Level 3 -->
+        <li>
+          <img src="Lab-Collection/course-cover-1.jpg" alt="Course Cover">
+          <h3>Business Programming</h3>
+          <p>Level: Advanced</p>
+          <p>Course Code: CST8283</p>
+          <p>Information systems built using the COBOL programming language support important institutions such as government services and the banking sectors. Students create COBOL programs in a business environment using structured methodology in the latest visual programming environment. Topics include output design, logic design tools, structured, top-down and modular coding, testing and debugging, and documentation. Students examine interactive, file-based, and database processing of data related to business problems. Arrays, indexed files, database access and sub-programs are explored.</p>
+          <p>Prerequisites: CST8116</p>
+        </li>
+      </ul>
+    </div>
+    </section>
+  </main>
+  
+  <footer>
+    <p>&copy; Formatting and code by Nouraldin Hassan.</p>
+    <p>Updated 2023-07-09</p>
+    <!-- 
+      IMAGE SOURCES:
+      - Lab-Collection/course-cover-1: https://negativespace.co/programming-java-code/ AND https://th.bing.com/th/id/OIP.yrOZ7SJZVgZFOgWZdQ14jgHaE8?pid=ImgDet&rs=1.
+      - Lab-Collection/course-cover-2: https://www.computerworlduk.com/data/what-is-sql-3681626/ AND https://th.bing.com/th/id/R.bd89b1fd594b0231ae24ee590b79d463?rik=uDqVor7uwCCSxg&pid=ImgRaw&r=0.
+      - Lab-Collection/course-cover-3: https://www.info.ucl.ac.be/~pvr/VanRoyChapter.pdf AND http://softwareengineering.stackexchange.com/questions/17976/how-many-types-of-programming-languages-are-there AND https://i.stack.imgur.com/7tcTq.jpg.
+      - Lab-Collection/course-cover-4: https://medium.com/front-end-weekly/what-is-functional-programming-b786c01a3a23 AND https://cdn-images-1.medium.com/max/2000/1*TgKIkkhl7iYZw3gZ_EZyEA.jpeg.
+      - Lab-Collection/course-cover-5: https://iubemcenter.indiana.edu/images/linux-coding.png AND https://iubemcenter.indiana.edu/equipment/computation/linux/index.html.
+      - Lab-Collection/course-cover-6: https://www.tonybates.ca/2017/11/03/how-can-online-learning-help-canadian-colleges-meet-the-challenges-ahead/ AND https://www.tonybates.ca/wp-content/uploads/Algonquin-College-students.jpg.
+    -->
+  </footer>
+</body>
+</html>

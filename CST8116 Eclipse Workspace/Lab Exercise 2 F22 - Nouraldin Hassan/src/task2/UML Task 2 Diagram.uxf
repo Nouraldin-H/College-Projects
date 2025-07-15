@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>710</x>
+      <y>10</y>
+      <w>330</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>CarInfo (SimpleClass)
+--
+-make:string
+-model:string
+-year:int
+vin:int
+mileage:double
+invoiceprice:double
+// vin, mileage, etc. does not have + or - because there was no public or private call, just a value assignment.
+--
++CarInfo((this):string,string,int)
+--
++CarInfo(make:string,model:string,year:int)
+(this)make:make
+(this)model:model
+(this)year:year
+--
++getMake():string
++setMake(value:string):void
++getModel():string
++setModel(value:string):void
++getYear():int
++setYear(value:int):void
+--
++printProperties():void
++toString():String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>60</y>
+      <w>700</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>Car (SimpleClass)
+--
+_+main(args:String[]):void_
+--
+(new)CarInfo(carinfo())
+(new)Scanner(input)
+vin:string
+mileage:double
+invoiceprice:double
+--
+println("5 Cars detected\nEnter the first car's VIN: ")
+nextLine(vin)
+println("enter the first car's Mileage: ")
+nextDouble(mileage)
+println("enter the first car's Invoice Price: ")
+nextDouble(invoiceprice)
+(new)CarInfo(car1("Nissan","Sentra",2018)) // Values already declared in CarInfo
+printProperties(car1)
+nextLine() // no need for more code as this would repeat for the other 4 cars (car2, car3, etc.). You get the idea</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>230</x>
+      <y>10</y>
+      <w>280</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>UML Class Diagram by Nouraldin Hassan</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

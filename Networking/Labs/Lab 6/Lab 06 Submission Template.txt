@@ -1,0 +1,80 @@
+Lab 06 Submission Template
+
+Name: Nouraldin Hassan
+
+Student Number: 041054019
+
+Task 0: Include task0_ip.jpg (activity window screenshot) with your submission.
+=======
+
+Task 3:
+=======
+
+3.
+
+    a. TTL field value: 128 Inbound, 127 Outbound
+
+    b. Type: 0x08
+
+       Code: 0x00
+
+4. Any values changed? 
+
+   Yes, Source Address and Destinatiion Address have changed, and the TTL has changed.
+
+5. 
+    a. TTL field value: 127 Inbound, 126 Outbound
+
+    b. Type: 0x00
+
+       Code: 0x00
+
+
+    6. The difference between inbound and outbound: The TTL decreases from the router when it is forwarded, and the destination and source address are changed for reaching the next router or connection device in the packet direction line.
+
+
+    7. The difference between the ICMP header in this PDU and the one in step 4: The type and code are both at 0x00 on step 7, rather than just the code being at 0x00 on step 4. That is the only noticable change in the ICMP section.
+
+
+Task 4:
+=======
+5.
+    a. Source IP: 192.168.91.254
+
+    b. Destination IP: 192.168.91.2
+
+    c. Type: 0x0b
+       
+       Code: 0x00
+
+    d. Below the ICMP header is: The IP followed by the ICMP comes next. It has the original dataset and information that follows the intended location with the given TTL and Type & Code.
+    
+8. 
+    a. The final device for the PDU: Router0. It will travel to Router1.
+
+    b. Source IP: 192.168.91.0 from Router0 to Router1, and 10.10.224.6 from nothing to Router1
+
+       Destination IP: 192.168.219.2 from Router0 to Router1, and 192.168.91.0 from nothing to Router1
+
+    11. The PDU travels until the device: is Router1, then returns to Router0 followed by PC.
+
+    12. Type: 0x0b (0x03 on intial testing)
+
+        Code: 0x00 (0x01 on intial testing)
+
+
+    13. The meaning of these ICMP type+code: Type said "Destination Unreachable" and Code said "Net Unreachable" ("Host Unreachable" on initial testing). The packet serves to send a message back to the source that the packet delivery failed. 
+
+    15. a. Type of PDU (see Event List): UDP is moving towards the server.
+
+    16. a. Type of PDU (see Event List): It is an ICMP type.
+
+        b. Type: 0x03
+
+           Code: 0x03
+
+        c. What meaning does the ICMP packet have?
+
+	   The Type of 0x03 means "Destination Unreachable" and Code of 0x03 means "Port Unreachable".
+
+Include the completed Packet Tracer activity file with your submission.

@@ -1,0 +1,7 @@
+DATA: The Data Access Layer
+PRESENTATION: The Presentation Layer. Contains the main class
+SERVICE: The Business or Service Layer
+
+TESTS: The Testing Layer*
+
+*Not an actual layer

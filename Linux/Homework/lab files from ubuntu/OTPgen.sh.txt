@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Defining a function/method that generates a random number of 3-4 digits
+generate_number() {
+ # Choosing a random 3-4 digit length
+ length=$(( 3 + RANDOM % 2 ))
+ 
+ # Generating number by choosing random digits
+ number=""
+ for i in $(seq 1 $length); do
+  rand_digit=$(( RANDOM % 10 ))
+  number="$number$rand_digit"
+ done
+ 
+ echo "$number"
+}
+
+# Generating a random OTP number/token and printing it.
+number=$(generate_number)
+number2=$(echo "$number" | fold -w1 | shuf | tr -d '\n')
+token="$number$number2"
+echo "Your OTP token is: $token"

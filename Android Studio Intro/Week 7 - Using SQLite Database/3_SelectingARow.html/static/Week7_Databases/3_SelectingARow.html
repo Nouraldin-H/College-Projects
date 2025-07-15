@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html><head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="shortcut icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="../../css/main.css" type="text/css">
+  <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+  <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+    <title>Selecting items</title>
+  </head>
+  <body>
+<h1>Setting an OnClick listener for rows</h1>
+<p>In the MyRowViews constructor, you are passed the View parameter, which in our lab is the ConstraintLayout root, with an ImageView and two TextView subitems. You can set an onItemClicked() listener for when you click anywhere on the area of the ConstraintLayout area:</p>
+<p></p>
+<p><img src="images/addOnClickListener.png"></p>
+<p>When you click on a row, we'd like to load an alert window asking if you want to delete this row. However you know to know which position you clicked on. In the OnClickListener, use the function <b>getAbsoluteAdapterPosition()</b>, which will tell you which row (position) this row is currently in the adapter object.</p>
+<p><img src="images/getAdapterPosition.png"></p>
+<p></p>
+<p>Now the only thing missing is the alert dialog to ask if you want to do this first. Go to the onClick() function you just wrote above:</p>
+<pre>  <b>AlertDialog.Builder builder = new AlertDialog.Builder( ChatRoom.this );</b>
+</pre>
+<p><br><br>To set the message on the alert window, call</p>
+<pre>    builder.setMessage( );</pre>
+<p><img src="images/img_p3_4.png"></p>
+<p>To set the title of the alert dialog, call <em><strong></strong></em></p>
+<pre><em><strong>    builder.setTitle();</strong></em></pre>
+<p></p>
+<p><img src="images/img_p3_5.png"></p>
+<p>The AlertDialog gives you two buttons to use, a positive button, and a negative button. You can set the words of these buttons with the function</p>
+<pre>    <strong>builder.setPositiveButton()</strong></pre>
+<p>and</p>
+<pre>    <strong>builder.setNegativeButton()</strong>:</pre>
+<p></p>
+<p><img src="images/img_p3_6.png"></p>
+<p>The "Yes" and "No" are the words that will show up on the buttons, and the lambda function is the click handler for what happens if you click on each of those buttons. Clicking on the No shouldn't delete anything so just leave that lambda function empty. For the "Yes" button, we have to remove the message that row, delete it from the database, and update the Adapter object that something's been removed so the RecyclerView can update itself:</p>
+<p><img src="images/mDaoDeleteMessage.png"></p>
+<p>Here, you want to use the adt adapter object from the ChatRoom onCreate function. You'll have to move the variable declaration outside of the onCreate function and put it as a class variable.</p>
+<p>The alert dialog is now properly configured with the Title, message, and Yes and No buttons set up. Now we have to actually make the window appear using the functions:</p>
+<p><img src="images/img_p3_8.png"></p>
+<p>Here we see two functions called on the same line of code. This is called the builder pattern, where the create() function returns an AlertDialog object, which then has the .show() function called on the returned object.</p>
+<p>In reality, all of the functions in this build process follow the <span style="text-decoration: underline;"><em><strong>builder pattern</strong></em></span> so you can remove all except the first builder object reference:</p>
+<p><img src="images/img_p3_9.png"></p>
+<p>Just remove all of the ";" semicolons between the lines of code but leave the semicolon after calling <strong>show();</strong> This means this is all one really long line of code!</p>
+<p>Run your program and add a few messages:</p>
+<p><img src="images/img_p3_10.png"></p>
+<p>Then click on one of the rows. You're clicking on area contained by the ConstraintLayout. You should see the AlertDialog window:</p>
+<p><img src="images/img_p3_11.png"></p>
+<p>You see the title <b>"Question:, the message "Do you want to delete the message: a"</b>, and the <b>"Yes"</b> positive and <b>"No"</b> negative button. You can change these words by changing your strings in the code. Clicking on the "No" button does nothing in your Negative lambda function but clicking on the "Yes" should remove the item from the ArrayList at position, use the ChatMessageDao object to delete from the database, and notify the adapter that the item at position was removed.</p>
+<p><img src="images/img_p3_12.png"></p>
+<p>You should see that clicking on the "Yes" button removes the selected row.</p>
+<p></p>
+<h1>Using a Snackbar</h1>
+<p>A Snackbar is similar to a Toast, in that it can also show a message for a LENGTH_SHORT or LENGTH_LONG amount of time. Like a toast, it needs only 1 line of code:</p>
+<p></p>
+<p><em><strong>Snackbar.make(View v, CharSequence text, int duration).show();</strong></em></p>
+<p><em><strong></strong></em></p>
+<p><img src="images/img_p3_13.png"></p>
+<p>You see this also uses the <em><strong>Builder pattern</strong></em> meaning that <strong>.make()</strong> returns a Snackbar, and <strong>.show()</strong> shows it. The <strong>View v</strong> parameter should be any Widget that is currently on the screen. Since you've clicked on this row, the TextView <strong>messageText</strong> and <strong>timeText</strong> from this row should be on the screen now, so you can use either of them. The <strong>CharSequence</strong> can be any text message: <strong>"You deleted message #" + position</strong>, and the duration can be either <strong>Snackbar.LENGTH_SHORT</strong> or <strong>Snackbar.LENGTH_LONG</strong>:</p>
+<p><img src="images/img_p3_14.png"></p>
+<p>Now when you delete a message by clicking on the Yes button, a little window should pop up from the bottom of your phone:</p>
+<p><img src="images/img_p3_15.png"></p>
+<p>However, a Snackbar has an optional button, like the AlertDialog. On the Snackbar, call setAction() before the .show() function:</p>
+<p><img src="images/img_p3_16.png"></p>
+<p>If you run your application again, you will see now there's an <strong>Undo</strong> button on the Snackbar:</p>
+<p><img src="images/img_p3_17.png"></p>
+<p>Add some code to the Lambda function so that if you click on the <strong>Undo</strong> button, you re-insert the message back into the ArrayList, and notify the adapter that something's been inserted:</p>
+<p><img src="images/img_p3_18.png"></p>
+<p>In this code, the variable <strong>removedMessage</strong> stores the message before it's removed from the ArrayList. That way if you click the "Undo" button, it gets reinserted back into its previous position and the RecyclerView should draw it back in after.</p>
+<p>If you play around with it for a bit, you should be able to get it to crash. Imagine this scenario:</p>
+<p>Add 5 messages: a, b, c, d, e</p>
+<p><img src="images/img_p3_19.png"></p>
+<p style="padding-left: 30px;">a has position 0</p>
+<p style="padding-left: 30px;">b has position 1</p>
+<p style="padding-left: 30px;">c has position 2</p>
+<p style="padding-left: 30px;">d has position 3</p>
+<p style="padding-left: 30px;">and e has position 4.</p>
+<p>Try your code now and you should have something like this:</p>
+<p><video title="video of recycler view" controls="controls" width="600" height="400">
+	<source src="videos/img_p3_21.mp4" type="video/mp4">
+</video></p>
+<p></p>
+<p>This is the end of this week's materials. You learned how to use a RecyclerView to make a dynamic list of items. You need a data class, in this case the ChatMessage class that stores the message data. The ViewHolder class stores the TextViews, ImageViews, etc that will show that message data on the screen.</p>
+<p>The function <b>onCreateViewHolder() </b>inflates a ViewHolder for that kind of object (Send or Receive type). The function <b>getItemViewType()</b> returns which type of ViewHolder you need for a given row (int position).</p>
+<p>The function <b>onBindViewHolder()</b> then passes in the object you returned in the <b>onCreateViewHolder()</b> function, and you then initialize the Views for the item at that position.</p>
+<p>The reason that RecyclerView is bettern than ListView is that you don't have to redraw the entire List whenever an item is removed or inserted, as is the case for the ListView. It redraws the whole list when something is inserted or removed. The RecyclerView only updates when you notify that a specific position is inserted or removed. This is much more efficient.</p>
+<p>You also learned how to create a new AppCompatActivity from scratch. You create a new class that extends AppCompatActivity, and you then declare the new Activity in the AndroidManifest.xml file. You can also control which activity gets loaded by moving around the &lt;intent-filter&gt; &lt;/intent-filter&gt; tags. For now, your Login activity is unreachable but we'll fix that next week.</p>
+<p>Lastly, you learned how to use the AlertDialog and Snackbar. Both are tiny windows that pop up over your current Activity, and they have their own built-in buttons that you can use.</p>
+<p>Don't forget to commit your code. Before you commit, make sure that there are no red file names in your project view. If there are, right-click on them and select "Git"-&gt; "Add". This adds them to the git tracking list, and they should turn green. Then commit your work and use the commit message "Finished Week 7". Push your code to your github repository and take a screenshot of your branch on github. Submit this picture to Brightspace.</p>
+<h2><span style="color: #cc0000;">Marks for Lab 7 (9 Total)<br></span></h2>
+<table>
+<tbody>
+<tr>
+<th>Item</th>
+<th>Marks</th>
+</tr>
+<tr>
+<td>Selecting a message shows an alert dialog asking if you want to delete the message</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>Clicking "Yes" or the positive message deletes the message from the list, and also deletes from the database using the ChatRoomDao object.</td>
+<td>(1 mark)</td>
+</tr>
+<tr>
+<td>Deleting a message shows a Snackbar with an UNDO button. Clicking on the UNDO button inserts the message back into the list.</td>
+<td>(2 marks)</td>
+</tr>
+<tr>
+<td>You have the proper annotations for the ChatMessage class (@Entity, @PrimaryKey, @ColumnInfo)</td>
+<td>(3 marks)</td>
+</tr>
+<tr>
+<td>You have the proper DAO class with annotation (@DAO, @Insert, @Query, @Delete)</td>
+<td>(1 marks)</td>
+</tr>
+<tr>
+<td>Adding a ChatMessage also inserts the message into the database</td>
+<td>(1 marks)</td>
+</tr>
+</tbody>
+</table>
+</body></html>

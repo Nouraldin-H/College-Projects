@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Student Name: Nouraldin Hassan
+# Student Number: 041054019
+# CST8102 320/321
+# Semester: Winter 2023
+# Instructor: Saifuddin Terai
+# Created March 28, 2023
+
+# Purpose: This script is for performing simple calculations on bash shell. Pass three parameters to properly run the script. The different numbers and operation combinations generate unique results.
+
+# start with clear screen
+clear
+
+# check if parameters is either 3 or 0. Input if 0, continue if 3.
+if [ $# -ne 3 ] && [ $# -eq 0 ]; then
+read -p "Enter a number: " num1
+read -p "Enter an operator ('+, -, *, or /'): " operator
+read -p "Enter a second number: " num2
+elif [ $# -ne 3 ]; then
+# failed to run calculator, display proper use.
+echo -e "Usage: \e[1m$0 num1 operator num2\e[0m. Type "'"*"'" if using multiplication (example: 5 "'"*"'" 7)
+Usage: \e[1m$0\e[0m. prompts input. Type * normally in that case"
+exit 1
+else
+# otherwise declare values from passed parameters.
+num1=$1
+operator=$2
+num2=$3
+fi
+
+# display inputted or passed values
+echo "$num1 $operator $num2 is:"
+
+# check if operator input or passed is plus for adding.
+if [ "$operator" = "+" ]; then
+ (( calculation = (num1 + num2) ))
+ echo $calculation
+ # check if operator input or passed is plus for subtracting.
+ elif [ "$operator" = "-" ]; then
+ (( calculation = (num1 - num2) ))
+ echo $calculation
+  # check if operator input or passed is plus for multiplying.
+ elif [ "$operator" = "*" ]; then
+ (( calculation = (num1 * num2) ))
+ echo $calculation
+  # check if operator input or passed is plus for dividing.
+ elif [ "$operator" = "/" ]; then
+ (( calculation = (num1 / num2) ))
+ echo $calculation
+ else
+  # otherwise operator is not valid or not supported.
+ echo "error: invalid or unsupported operator"
+ exit 1
+fi
+
+# below is just for debug purposes
+# (( calculation = ( num1 operator num2 ) ))
+# echo $num1 $operator $num2 " = " $calculation
+
+#eof

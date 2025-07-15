@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <link rel="stylesheet" href="../../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+    <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+    <title>Recycler View</title>
+  </head>
+  <body>
+  <h1>Recycler View</h1>
+    <p>Before beginning this week's module, make sure you are on your week1
+      branch, and from there create a new branch called "Week6_RecyclerView".
+      After, make sure you are on the new branch. If you aren't, make sure you
+      checkout the new branch.</p>
+    <p>Recycler View is list that can show a various number of elements, and the
+      user can scroll through the elements:</p>
+    <p><img src="images/img_p1_1.jpg" alt="Add a RecyclerView to a fragment" style="width: 525px; height: 295.313px; display: block; margin-left: auto; margin-right: auto;"></p>
+    <p></p>
+    <p>RecyclerView is relatively new to Android, and is not part of the standard
+      Android classes that come with AndroidStudio. It replaces the ListView, and it offers some speed and
+      memory improvements. Since RecyclerView is not part of the normal
+      instation, you have to add to add the library to your <b>app/build.gradle file:</b></p>
+    <p><img src="images/img_p1_2.png"></p>
+    <p>In this file, find the dependencies section :</p>
+    <p><img src="images/img_p1_3.png"></p>
+    <p>and add this line:</p>
+    <p><code>implementation 'androidx.recyclerview:recyclerview:1.1.0'</code></p>
+    <p><br>
+      You will notice that the line gets highlighted in yellow:</p>
+    <p><img src="images/img_p1_4.png"></p>
+    <p>The yellow highlighting is Android Studio telling you that there's a new
+      version of the recyclerview library available for download. Just hover
+      your mouse over the line and click on "Change to 1.2.1" and you'll notice
+      it updates 1.1.0 to 1.2.1:</p>
+    <p><img src="images/img_p1_5.png"></p>
+    <p>Change all the other yellow lines, except the <b>junit:4.+ </b>one. Writing this using the
+      + symbol means just take the latest one after 4.0.</p>
+    <p><img src="images/img_p1_6.png"></p>
+    <p>You could change the line <code>implementation
+        'androidx.recyclerview:recyclerview:1.1.0'</code> to <code>implementation 'androidx.recyclerview:recyclerview:1.+'</code>
+    and Android Studio will always take the latest version of the recyclerview library of version 1.</p>
+    <p>Once you are done modifying the build.gradle file, you have to click on
+      <b>"Sync now"</b> in the top right so that it downloads the new jar files from the Gradle
+      repository. It's an online database of many different jar files which
+      AndroidStudio will download automatically for you and link in the *.jar
+      files to your project.<code></code></p>
+    <p>In previous weeks, you created a new empty activity using the menu options. This
+      week, you will do the same to create a class called ChatRoom. Select "File" -> "New" -> "Activity" -> "Empty Activity":
+
+<img src="images/newChatActivity.png">
+
+
+    <p>Call the new class "ChatRoom"</p>
+    <p><img src="images/img_p1_8.png"></p>
+
+    <p>Go ahead and select the <b>"Launcher Activity"</b> checkbox. This will make it the Activity that gets launched
+      on startup. Click Finish and then click on the&nbsp; "Add" button to add the file to the git tracking list.</p>
+
+
+    <p>You should now see your new project. It uses the old setContentView() function, so modify it to use the
+    new ViewBinding. The layout file name here is <b>activity_chat_room</b> so the binding class that gets generated
+    should be <b>ActivityChatRoomBinding</b></p>
+    <p><img src="images/img_p1_10.png"></p>
+<p>
+    Then look at the layout file activity_chat_room.xml and add a &lt;RecyclerView&gt; widget. Use the ConstraintView
+    to constrain the RecyclerView to all 4 sides of the parent:
+
+<img src="images/wrapContentConstraint.png">
+  <p> Notice that it doesn't extend all the way to the sides? That's because it's set to "wrap_content", meaning it's the minimum size required to
+  make the content fit. If you change the <b>layout_width</b> and <b>layout_height</b> to 0dp, which means <b>match_constraint,
+    or drag the edges all the way to the attachment point of the constraint.</b>
+  <img src="images/matchConstraintRecycler.png" >
+
+  If we give the RecycleView an id, then we'll load it in Java using ViewBinding. Here, I've given the id named
+   <b>recycleView</b> in XML, and I can access it in Java:
+  <img src="images/recycleBindingJava.png"> </p>
+
+  <p>Once your RecycleView is loaded, the only thing you have to do is call <b>setAdapter( )</b>
+  <img src="images/setAdapterRecycler.png">
+    What goes inside the parentheses is <b>new RecyclerView.Adapter()</b>
+    <img src="images/adapterMissingFunctions.png">
+
+
+    Next, we'll create an inner class inside ChatRoom called <b>MyRowHolder</b> which will be an object for representing everything that goes
+    on a row in the list. Create an inner class in your ChatRoom.java class like this:
+    <pre>
+    class MyRowHolder extends RecyclerView.ViewHolder {
+        public MyRowHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    } </pre><p> For now, we'll just leave it empty but this class is what goes inside the generics < > in the Adapter :
+
+      <pre>
+      binding.recycleView.setAdapter(new RecyclerView.Adapter&lt;MyRowHolder&gt;() )
+    </pre>
+
+
+<p>    If you hover your mouse over the red lines, you get a messages saying that Adapter can't be instantiated
+    because it's missing functions.
+    <img src="images/implementMethods.png">
+    Click on the "Implement methods" link and then select "Ok" to generate the missing methods and you'll see this:
+<img src="images/compilerImplementedMethods.png">
+
+    A RecyclerView.Adapter object needs 3 functions to tell the view how to draw items in the list.
+    Those functions are:<br>
+    <ol>
+      <li><b>onCreateViewHolder(ViewGroup parent, int viewType) </b> - This function creates a ViewHolder object which we'll learn next. It
+      represents a single row in the list</li>
+      <li><b>onBindViewHolder(MyRowHolder holder, int position) </b> - This initializes a ViewHolder to go at the row specified by the position parameter.</li>
+      <li><b>getItemCount()</b> - This function just returns an int specifying how many items to draw.</li>
+    </ol>
+  </p>
+
+    <p>
+      Continue on to the next module to learn what to put in these functions.
+    </p>
+
+
+
+  </body>
+</html>

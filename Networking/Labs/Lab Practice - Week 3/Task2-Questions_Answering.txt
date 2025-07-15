@@ -1,0 +1,14 @@
+1. Which layer of OSI model show the MAC address?
+	Layer 2, displaying "Ethernet II Header 000A.4108.ED2E >> 0030.F23D.3AD6"
+2. What is the Ethernet Header?
+	It is the header that starts from 0 on the "EthernetII" section up until the "DATA (VARIABLE LENGTH) info"
+3. What protocol did you capture?
+	I captured the HTTP protocol.
+4. This protocol used by which layer of the OSI model?
+	Data Link layer.
+5. What are the SRC IP and DEST IP address?
+	SRC IP: 192.168.5.1 and DEST IP: 192.168.5.10.
+6. Which devices to they belong to?
+	192.168.5.1 belongs to PC0 and 192.168.5.10 belongs to Server0.
+7. What is the destination port?
+	PC0 sends to Server0 to connect to HTTP, so destination port is 80, sent from 1034.

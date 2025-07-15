@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="../../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/normalize.css" type="text/css">
+    <script src="https://kit.fontawesome.com/dc0167878f.js" crossorigin="anonymous"></script>
+    <title>ROOM Database</title>
+  </head>
+  <body>
+<h1>Using ROOM Database in Android</h1>
+<p>Previously Android used SQLiteDatabase and SQLiteOpenHelper classes for creating databases and performing CRUD operations. Now, there's a ROOM library that takes care of most of the operations for you, however you still have a bit of work to do.</p>
+<h2>Sql using ROOM</h2>
+<p>Room is a library for making it easy for running SQL commands. It's not normally included in projects so we have to modify the "app/build.gradle" file. Add these lines of code to the dependencies{ } section:</p>
+<p><code><code></code></code></p>
+<p>def room_version = "2.4.2" <br>implementation "androidx.room:room-runtime:$room_version"<br>annotationProcessor "androidx.room:room-compiler:$room_version"</p>
+<p><code>
+  </code></p>
+<p>and then press on the "Sync Now" button at the top right.</p>
+<p>Now that your project is ready to use the library, let's start making our objects that we'll store. You have to think what is it that we are storing in a table, and then create a Java class that reflects that data. In this case, we will be storing the Chat Messages from your previous labs, so go ahead and open ChatMessage.java. In order to save objects of this class into a database, add the @Entity annotation above the class declaration:</p>
+<p><img src="images/ChatMessageEntity.png" width="435" height="94" alt=""></p>
+<p>Next, for all of the other class variables, you should specify the column name in the database that will store that variable. For this you use the annotation:</p>
+<div class="code">@ColumnInfo(name="PutNameHere")</div>
+<p>The string you give will become the column name in the database to store this variable. So go ahead and give a name for each of the variables in ChatMessage: <img src="images/ChatMessageColumnInfo.png" width="401" height="280" alt=""></p>
+<p>Lastly, since this is going into a database, we should create an id field, and make it the primary key. For that, add these lines:</p>
+<p>&nbsp;</p>
+<p><img src="File_7984492e62834b66936c4b1ad701f686_image.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></p>
+<p>That's all that you need to prepare your object for going into a database:</p>
+<ol>
+<li>Add the <b>@Entity</b> annotation above the class to mark this as something that can go into a database</li>
+<li>Add <b>@ColumnInfo(name="XXXX")</b> to specify that this variable will go into a database column named XXXX</li>
+<li>Add a <b>@PrimaryKey(autoGenerate=true) public int id;</b> field</li>
+</ol>
+<p></p>
+</body></html>
